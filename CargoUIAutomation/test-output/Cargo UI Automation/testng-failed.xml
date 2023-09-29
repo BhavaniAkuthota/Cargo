@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="1" name="Failed suite [Cargo UI Automation]" guice-stage="DEVELOPMENT" verbose="0">
+  <test thread-count="1" name="createAndConfirmGuidedBookingForParcel_STANDARD_NA_Domestic(failed)" verbose="0">
+    <parameter name="author" value="Bhavani"/>
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="si.deltacargo.com"/>
+    <classes>
+      <class name="com.delta.test.UI.GuidedBookingParcel">
+        <methods>
+          <include name="initialiseExtentReports"/>
+          <include name="teardown"/>
+          <include name="checkStatus"/>
+          <include name="generateExtentReports"/>
+          <include name="setup"/>
+          <include name="createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic"/>
+        </methods>
+      </class> <!-- com.delta.test.UI.GuidedBookingParcel -->
+    </classes>
+  </test> <!-- createAndConfirmGuidedBookingForParcel_STANDARD_NA_Domestic(failed) -->
+</suite> <!-- Failed suite [Cargo UI Automation] -->

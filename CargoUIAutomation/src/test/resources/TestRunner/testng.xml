@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cargo UI Automation" verbose="1" thread-count="1" parallel="false">
+
+<!--    <listeners>-->
+<!--        <listener class-name="com.qa.ExtentReportListener.ExtentReporterNG" />-->
+<!--    </listeners>-->
+
+
+
+
+<!--    <test name="createAndConfirmAdvanceBookingForGeneralCargo_Standard_Loose">-->
+<!--        <parameter name="url" value="si.deltacargo.com"></parameter>-->
+<!--        <parameter name="browser" value="chrome"></parameter>-->
+<!--        <parameter name="author" value="Sumit"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="com.delta.test.UI.AdvanceBookingGeneralCargo">-->
+<!--                <methods>-->
+<!--                    <include name="createAndConfirmAdvanceBookingForGeneral_Cargo_STANDARD_Loose"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="createAndConfirmAdvanceBookingForGeneralCargo_DSH_Loose">-->
+<!--        <parameter name="url" value="si.deltacargo.com"></parameter>-->
+<!--        <parameter name="browser" value="chrome"></parameter>-->
+<!--        <parameter name="author" value="Sumit"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="com.delta.test.UI.AdvanceBookingGeneralCargo">-->
+<!--                <methods>-->
+<!--                    <include name="createAndConfirmAdvanceBookingForGeneral_Cargo_DSH_Loose"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="createAndConfirmAdvanceBookingForGeneralCargo_DMD_Loose">-->
+<!--        <parameter name="url" value="si.deltacargo.com"></parameter>-->
+<!--        <parameter name="browser" value="chrome"></parameter>-->
+<!--        <parameter name="author" value="Sumit"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="com.delta.test.UI.AdvanceBookingGeneralCargo">-->
+<!--                <methods>-->
+<!--                    <include name="createAndConfirmAdvanceBookingForGeneral_Cargo_DMD_Loose"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+    <test name="createAndConfirmGuidedBookingForParcel_STANDARD_NA_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Bhavani"></parameter>
+        <classes>
+            <class name="com.delta.test.UI.GuidedBookingParcel">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
