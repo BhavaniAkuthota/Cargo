@@ -145,32 +145,32 @@ public class CommonMethod {
         }
         return visiblityofelement;
     }
-    public void shippingDate(WebDriver driver, String dayValue ){
-        boolean lastVisibleDay;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println(dtf.format(now));
-        String date = dtf.format(now); // 2023/09/29
-        String[] day = date.split("/");
-        int currentDay = Integer.valueOf(day[2]);
-        if(currentDay>0 && currentDay<=27 ){
-            currentDay = currentDay + Integer.valueOf(dayValue);
-        } else if (currentDay>27) {
-        if (verifyElementIsDisplayed(driver,"//td/a[text()='31']")){
-            currentDay = currentDay + Integer.valueOf(dayValue);
-        } else if (verifyElementIsDisplayed(driver,"//td/a[text()='30']")) {
-            currentDay = currentDay + Integer.valueOf(dayValue);
-        } else if (verifyElementIsDisplayed(driver,"//td/a[text()='29']")) {
-            currentDay = currentDay + Integer.valueOf(dayValue);
-        }
-        else {
-            waitUntilXpathElementIsClickable(driver,"//span[contains (text(),'Next Month')]");
-            currentDay = 1;
-        }
-        }
-        waitUntilXpathElementIsClickable(driver,"//td/a[text()='"+currentDay+"']");
-
-
-
-    }
+//    public void shippingDate(WebDriver driver, String dayValue ){
+//        boolean lastVisibleDay;
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//        LocalDateTime now = LocalDateTime.now();
+//        System.out.println(dtf.format(now));
+//        String date = dtf.format(now); // 2023/09/29
+//        String[] day = date.split("/");
+//        int currentDay = Integer.valueOf(day[2]);
+//        if(currentDay>0 && currentDay<=27 ){
+//            currentDay = currentDay + Integer.valueOf(dayValue);
+//        } else if (currentDay>27) {
+//        if (verifyElementIsDisplayed(driver,"//td/a[text()='31']")){
+//            currentDay = currentDay + Integer.valueOf(dayValue);
+//        } else if (verifyElementIsDisplayed(driver,"//td/a[text()='30']")) {
+//            currentDay = currentDay + Integer.valueOf(dayValue);
+//        } else if (verifyElementIsDisplayed(driver,"//td/a[text()='29']")) {
+//            currentDay = currentDay + Integer.valueOf(dayValue);
+//        }
+//        else {
+//            waitUntilXpathElementIsClickable(driver,"//span[contains (text(),'Next Month')]");
+//            currentDay = 1;
+//        }
+//        }
+//        waitUntilXpathElementIsClickable(driver,"//td/a[text()='"+currentDay+"']");
+//
+//
+//
+//    }
 }

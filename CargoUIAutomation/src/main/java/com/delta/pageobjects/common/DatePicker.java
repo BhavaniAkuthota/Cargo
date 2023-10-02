@@ -1,5 +1,4 @@
 package com.delta.pageobjects.common;
-
 import com.delta.util.CommonMethod;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -11,9 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-
 public class DatePicker {
-
     private final WebDriver driver;
     private final Map<String, String> xpathIDMap;
 

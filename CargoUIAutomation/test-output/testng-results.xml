@@ -5,20 +5,20 @@
       <![CDATA[user logged In Sucessfully]]>
     </line>
   </reporter-output>
-  <suite started-at="2023-09-29T18:59:11 EDT" name="Cargo UI Automation" finished-at="2023-09-29T19:00:10 EDT" duration-ms="58976">
+  <suite started-at="2023-10-02T14:34:41 EDT" name="Cargo UI Automation" finished-at="2023-10-02T14:35:57 EDT" duration-ms="75536">
     <groups>
     </groups>
-    <test started-at="2023-09-29T18:59:11 EDT" name="createAndConfirmGuidedBookingForParcel_STANDARD_NA_Domestic" finished-at="2023-09-29T19:00:10 EDT" duration-ms="58976">
+    <test started-at="2023-10-02T14:34:41 EDT" name="createAndConfirmGuidedBookingForParcel_STANDARD_NA_Domestic" finished-at="2023-10-02T14:35:57 EDT" duration-ms="75536">
       <class name="com.delta.test.UI.GuidedBookingParcel">
-        <test-method is-config="true" signature="initialiseExtentReports()[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@563f1120]" started-at="2023-09-29T18:59:11 EDT" name="initialiseExtentReports" finished-at="2023-09-29T18:59:11 EDT" duration-ms="160" status="PASS">
+        <test-method is-config="true" signature="initialiseExtentReports()[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@f1604fe]" started-at="2023-10-02T14:34:41 EDT" name="initialiseExtentReports" finished-at="2023-10-02T14:34:41 EDT" duration-ms="189" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initialiseExtentReports -->
-        <test-method is-config="true" signature="setup(org.testng.ITestContext,java.lang.String)[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@563f1120]" started-at="2023-09-29T18:59:11 EDT" name="setup" finished-at="2023-09-29T18:59:26 EDT" duration-ms="14337" status="PASS">
+        <test-method is-config="true" signature="setup(org.testng.ITestContext,java.lang.String)[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@f1604fe]" started-at="2023-10-02T14:34:41 EDT" name="setup" finished-at="2023-10-02T14:34:54 EDT" duration-ms="13284" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@532fb790]]>
+                <![CDATA[org.testng.TestRunner@284e034]]>
               </value>
             </param>
             <param index="1">
@@ -30,14 +30,14 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic()[pri:1, instance:com.delta.test.UI.GuidedBookingParcel@563f1120]" started-at="2023-09-29T18:59:26 EDT" name="createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic" finished-at="2023-09-29T19:00:10 EDT" duration-ms="44612" status="PASS">
+        <test-method signature="createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic()[pri:1, instance:com.delta.test.UI.GuidedBookingParcel@f1604fe]" started-at="2023-10-02T14:34:54 EDT" name="createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic" finished-at="2023-10-02T14:35:57 EDT" duration-ms="62195" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[user logged In Sucessfully]]>
             </line>
           </reporter-output>
         </test-method> <!-- createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic -->
-        <test-method is-config="true" signature="checkStatus(java.lang.reflect.Method,org.testng.ITestResult)[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@563f1120]" started-at="2023-09-29T19:00:10 EDT" name="checkStatus" finished-at="2023-09-29T19:00:10 EDT" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="checkStatus(java.lang.reflect.Method,org.testng.ITestResult)[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@f1604fe]" started-at="2023-10-02T14:35:57 EDT" name="checkStatus" finished-at="2023-10-02T14:35:57 EDT" duration-ms="25" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -46,18 +46,18 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA[[TestResult name=createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic status=SUCCESS method=GuidedBookingParcel.createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic()[pri:1, instance:com.delta.test.UI.GuidedBookingParcel@563f1120] output=user logged In Sucessfully]]]>
+                <![CDATA[[TestResult name=createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic status=SUCCESS method=GuidedBookingParcel.createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic()[pri:1, instance:com.delta.test.UI.GuidedBookingParcel@f1604fe] output=user logged In Sucessfully]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkStatus -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@563f1120]" started-at="2023-09-29T19:00:10 EDT" name="teardown" finished-at="2023-09-29T19:00:10 EDT" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="teardown()[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@f1604fe]" started-at="2023-10-02T14:35:57 EDT" name="teardown" finished-at="2023-10-02T14:35:57 EDT" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- teardown -->
-        <test-method is-config="true" signature="generateExtentReports()[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@563f1120]" started-at="2023-09-29T19:00:10 EDT" name="generateExtentReports" finished-at="2023-09-29T19:00:11 EDT" duration-ms="569" status="PASS">
+        <test-method is-config="true" signature="generateExtentReports()[pri:0, instance:com.delta.test.UI.GuidedBookingParcel@f1604fe]" started-at="2023-10-02T14:35:57 EDT" name="generateExtentReports" finished-at="2023-10-02T14:35:58 EDT" duration-ms="1488" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- generateExtentReports -->

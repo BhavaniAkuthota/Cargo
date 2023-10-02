@@ -5,7 +5,6 @@ import com.delta.util.CommonMethod;
 import com.delta.util.ExcelRead;
 import com.delta.util.Login;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -79,8 +78,9 @@ public class GuidedBooking {
     }
     public void userEnterGbParcelShipmentDestination(WebDriver driver, String xlShipmentDestination) throws InterruptedException {
         commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsDestination").toString(),xlShipmentDestination);
+        commmonMethod.waitUntilCssSelectorElementIsClickable(driver,xpathIDMap.get("gbParcelFlightInformation").toString());
+        commmonMethod.waitForAction(2000);
     }
-
     public void userClickOnGbParcelShipmentDatePicker(WebDriver driver) {
         DatePicker datePicker = new DatePicker(driver, xpathIDMap);
         datePicker.openCalendar();
@@ -88,34 +88,27 @@ public class GuidedBooking {
         commmonMethod.waitForAction(2000);
     }
 
-//    public void userSelectGbParcelShipmentDate(WebDriver driver, String xlShipmentCalendarDate) {
-//        commmonMethod.waitUntilCssSelectorElementIsClickable(driver,xpathIDMap.get("gbParcelsShipmentDate").toString());
-//        commmonMethod.shippingDate(driver,xlShipmentCalendarDate);
-//
-//    }
-
     public void userSelectGbParcelDepartureTime(WebDriver driver) {
-        final String[] departureTimes = {"Early (12am-8am)", "Morning (8am-12pm)", "Afternoon (12pm-4pm)", "Evening (4pm-8pm)", "Late (8pm-12pm"};
-        Select departureTime = new Select(driver.findElement(By.cssSelector(xpathIDMap.get("gbParcelsDepartureTimeSelector"))));
-        int index = new Random().nextInt(departureTimes.length);
-        System.out.println("\n\n##################### Departure Time: " + departureTimes[index] + " #####################\n\n");
-        departureTime.selectByVisibleText(departureTimes[index]);
-        commmonMethod.waitForAction(1000);
+        try {
+            final String[] departureTimes = {"Early (12am-8am)", "Morning (8am-12pm)", "Afternoon (12pm-4pm)", "Evening (4pm-8pm)", "Late (8pm-12pm)"};
+            Select departureTime = new Select(driver.findElement(By.cssSelector(xpathIDMap.get("gbParcelsDepartureTimeSelector"))));
+            int index = new Random().nextInt(departureTimes.length);
+            System.out.println("\n\n##################### Departure Time: " + departureTimes[index] + " #####################\n\n");
+            departureTime.selectByVisibleText(departureTimes[index]);
+            commmonMethod.waitForAction(1000);
+        }
+        catch (Exception e){
+            System.out.println("\n\n##################### Exception#####################\n\n");
+            e.printStackTrace();
+        }
     }
 
     public void userSelectDeliveryType(WebDriver driver) {
         final String[] shipmentTypes = {"generalSelectedPickupDeliveryOptionCode0", "generalSelectedPickupDeliveryOptionCode1", "generalSelectedPickupDeliveryOptionCode2", "generalSelectedPickupDeliveryOptionCode3"};
         int index = new Random().nextInt(shipmentTypes.length);
-        String shipmentSelector = String.format("input[id*='generalSelectedPickupDeliveryOptionCode'] + label[for='%s']", shipmentTypes[index]);
+        String shipmentSelector = String.format("input[id*='generalSelectedPickupDeliveryOptionCode'] + label[for='generalSelectedPickupDeliveryOptionCode3']", shipmentTypes[index]);
         driver.findElement(By.cssSelector(shipmentSelector)).click();
     }
-
-
-//    public void userSelectGbParcelShippingOption(WebDriver driver){
-//        commmonMethod.selectDropdownUsingCssSelector(driver,xpathIDMap.get("gbParcelsDepartureTime").toString(),xl);
-//
-//    }
-
 
 
     public void userEnterGbParcelShipmentQuantity(WebDriver driver, String xlShipmentQuantity) {
@@ -171,4 +164,8 @@ public class GuidedBooking {
             commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelPrescreenedNo").toString());
         }
     }
+    public void userClicksOnGbParcelViewShippingOptions(WebDriver driver){
+        commmonMethod.waitUntilCssSelectorElementIsClickable(driver, xpathIDMap.get("gbParcelViewShippingOptions").toString());
+    }
+
 }
