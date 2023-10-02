@@ -41,8 +41,9 @@ public class GuidedBookingParcel extends BaseTest {
             guidedBooking.userSelectsGbShipmentTypes(driver);
             guidedBooking.userEnterGbParcelShipmentOrigin(driver,xlShipmentOrigin);
             guidedBooking.userEnterGbParcelShipmentDestination(driver,xlShipmentDestination);
-            Thread.sleep(10000);
-           // guidedBooking.userSelectGbParcelShipmentDate(driver,xlShipmentCalendarDate);
+            guidedBooking.userClickOnGbParcelShipmentDatePicker(driver);
+            guidedBooking.userSelectGbParcelDepartureTime(driver);
+            guidedBooking.userSelectDeliveryType(driver);
 
 
 
