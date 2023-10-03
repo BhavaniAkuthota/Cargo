@@ -24,12 +24,10 @@ public class Login {
      List<String> getTestCaseMasterSheet=excelRead.getTestCaseMasterSheet(inputTestFile);
      Map<String, List<Map<String, Object>>> readInputTestCaseFile=excelRead.readInputTestCaseFile(inputTestFile,getTestCaseMasterSheet);*/
     Map<String, String> xpathIDMap = excelRead.readXPathData(xpathDataFile);
-public  Map<String, String> getXpathIDMap(){
+    public  Map<String, String> getXpathIDMap() {
 
-    return xpathIDMap;
-}
-
-
+        return xpathIDMap;
+    }
 
     public void userLoginAsDomesticAccount(WebDriver driver, String loginUsername, String loginPassword) {
         try {

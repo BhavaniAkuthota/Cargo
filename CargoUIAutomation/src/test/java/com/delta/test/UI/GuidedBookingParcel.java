@@ -56,15 +56,18 @@ public class GuidedBookingParcel extends BaseTest {
             guidedBooking.userChooseGbParcelShipmentBePreScreened(driver,xlShipmentBePreScreened);
             guidedBooking.userClicksOnGbFindFlights(driver);
             guidedBooking.userSelectOneFlight(driver);
-            guidedBooking.userWaitsToFillsCargoShipmentRequest(driver);
+            guidedBooking.userWaitsToFillCargoShipmentRequest(driver);
             String xlRecipientAccountNumber = (String) eachRowMap.get("RecipientInformationAccountNumber");
+            // Fix below 3 properties, no test data provided in the spreadsheet
+            String xlShipmentDescription = "Sample shipment";
             String xlRecipientFullName = "FNU LNU";
             String xlRecipientCountry = "USA";
             String xlRecipientAddress = (String) eachRowMap.get("Address1");
             String xlRecipientCity = (String) eachRowMap.get("City");
             String xlRecipientState = (String) eachRowMap.get("State");
             String xlRecipientPostalCode = (String) eachRowMap.get("Postal");
-            guidedBooking.userEnterRecipientDetails(driver, new String[]{xlRecipientAccountNumber,
+            guidedBooking.userEnterRecipientDetails(driver, new String[]{xlShipmentDescription,
+                    xlRecipientAccountNumber,
                     xlRecipientFullName,
                     xlRecipientCountry,
                     xlRecipientAddress,

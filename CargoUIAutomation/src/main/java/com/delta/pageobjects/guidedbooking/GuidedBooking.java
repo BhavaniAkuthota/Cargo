@@ -5,7 +5,9 @@ import com.delta.util.CommonMethod;
 import com.delta.util.ExcelRead;
 import com.delta.util.Login;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -183,40 +185,64 @@ public class GuidedBooking {
     }
 
     public void userSelectOneFlight(WebDriver driver) {
-        commmonMethod.waitForAction(2000);
+        // Wait for flight search dialog goes away
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class='modal-dialog ']")));
-        commmonMethod.waitForAction(5000);
-        // div[class='price-per-unit'] button
-        // div[class='column flightInformation'] + div[class='column'] a
-//        commmonMethod.waitUntilCssSelectorElementIsClickable(driver, xpathIDMap.get("div[class='column flightInformation'] + div[class='column'] a"));
+        // Wait for the flight search results to be displayed
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//dc-flight-search-results"))));
+        commmonMethod.waitForAction(2000);
         driver.findElement(By.cssSelector("div[class='column flightInformation'] + div[class='column'] a")).click();
     }
 
-    public void userWaitsToFillsCargoShipmentRequest(WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
-        // dc-loader ng-isolate-scope
-//        driver.findElement(By.cssSelector("dc-loader ng-isolate-scope")).isDisplayed();
-         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("span img[alt='loading']")));
-        // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//main[@id='mainContent']")));
-         commmonMethod.waitForAction(2000);
+    public void userWaitsToFillCargoShipmentRequest(WebDriver driver) {
+        WebElement chargesConfirmationPage = driver.findElement(By.xpath("//main[@id='mainContent']"));
+        if (chargesConfirmationPage == null) {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2000));
+            waitForLoaderProgressBar(driver, wait);
+        }
+    }
+
+    private void waitForLoaderProgressBar(WebDriver driver, WebDriverWait wait) {
+        By loader = By.cssSelector("span img[alt='loading']");
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(loader)));
+        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(loader)));
     }
 
     public void userEnterRecipientDetails(WebDriver driver, String[] recipientInfo) {
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientAccountNumber"), recipientInfo[0]);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2000));
+        waitForLoaderProgressBar(driver, wait);
+        commmonMethod.waitForAction(2000);
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("ShipmentDescription"), recipientInfo[0]);
         commmonMethod.waitForAction(200);
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientFullName"), recipientInfo[1]);
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("RecipientAccountNumber"), recipientInfo[1]);
         commmonMethod.waitForAction(200);
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientCountry"), recipientInfo[2]);
+
+        waitForLoaderProgressBar(driver, wait);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("body[class='modal-open']"))));
+        driver.findElement(By.cssSelector("button[class='btn blue-btn ng-binding']")).click();
+        waitForLoaderProgressBar(driver, wait);
+
+        // Select Payment method
+        driver.findElement(By.cssSelector("input[id='bopaymentTypeCreditCard'] + label[for='bopaymentTypeCreditCard']")).click();
         commmonMethod.waitForAction(200);
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientAddress"), recipientInfo[3]);
+        // Select one credit available credit card
+        driver.findElement(By.cssSelector("input[id='bosavedCardData-1'] + label[for='bosavedCardData-1']")).click();
         commmonMethod.waitForAction(200);
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientCity"), recipientInfo[4]);
+        // Select agreement check box
+        driver.findElement(By.xpath("//label[@for='bosubscriptionOptFlag']")).click();
         commmonMethod.waitForAction(200);
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientState"), recipientInfo[5]);
-        commmonMethod.waitForAction(200);
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientPostalCode"), recipientInfo[6]);
-        commmonMethod.waitForAction(200);
-        System.out.println("\n\n&&&&&&&&&&&&&&&&& SUCCESS &&&&&&&&&&&&&&&&&\n\n");
+
+        // Submit shipment confirmation
+        driver.findElement(By.cssSelector("button[type='button'] + button[type='submit']")).click();
+
+        waitForLoaderProgressBar(driver, wait);
+
+        driver.findElement(By.cssSelector("button[class='btn blue-btn ng-binding']")).click();
+
+        waitForLoaderProgressBar(driver, wait);
+
+        // Confirmed Booking Page is displayed
+        WebElement confirmedBookingPage = driver.findElement(By.xpath("//div[@id='dc-print']"));
+        assert (confirmedBookingPage != null);
     }
 }
