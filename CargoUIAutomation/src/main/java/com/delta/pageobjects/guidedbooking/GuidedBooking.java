@@ -6,9 +6,11 @@ import com.delta.util.ExcelRead;
 import com.delta.util.Login;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.security.PublicKey;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,83 +91,132 @@ public class GuidedBooking {
     }
 
     public void userSelectGbParcelDepartureTime(WebDriver driver) {
-        try {
-            final String[] departureTimes = {"Early (12am-8am)", "Morning (8am-12pm)", "Afternoon (12pm-4pm)", "Evening (4pm-8pm)", "Late (8pm-12pm)"};
-            Select departureTime = new Select(driver.findElement(By.cssSelector(xpathIDMap.get("gbParcelsDepartureTimeSelector"))));
-            int index = new Random().nextInt(departureTimes.length);
-            System.out.println("\n\n##################### Departure Time: " + departureTimes[index] + " #####################\n\n");
-            departureTime.selectByVisibleText(departureTimes[index]);
-            commmonMethod.waitForAction(1000);
-        }
-        catch (Exception e){
-            System.out.println("\n\n##################### Exception#####################\n\n");
-            e.printStackTrace();
-        }
+        final String[] departureTimes = {"0000", "0800", "1200", "1600", "2000"};
+        Select departureTime = new Select(driver.findElement(By.cssSelector(xpathIDMap.get("gbParcelsDepartureTimeSelector"))));
+        int index = new Random().nextInt(departureTimes.length);
+        departureTime.selectByValue(departureTimes[index]);
+        commmonMethod.waitForAction(1000);
     }
 
     public void userSelectDeliveryType(WebDriver driver) {
         final String[] shipmentTypes = {"generalSelectedPickupDeliveryOptionCode0", "generalSelectedPickupDeliveryOptionCode1", "generalSelectedPickupDeliveryOptionCode2", "generalSelectedPickupDeliveryOptionCode3"};
-        int index = new Random().nextInt(shipmentTypes.length);
-        String shipmentSelector = String.format("input[id*='generalSelectedPickupDeliveryOptionCode'] + label[for='generalSelectedPickupDeliveryOptionCode3']", shipmentTypes[index]);
+        // Always defaulting to option 'None'. If more dynamic behavior is needed then remove hard coded value and use
+        // the commented random index generator.
+        int index = 3;
+        // int index = new Random().nextInt(shipmentTypes.length);
+        String shipmentSelector = String.format(xpathIDMap.get("gbParcelsShipmentServiceDeliveryType"), shipmentTypes[index]);
         driver.findElement(By.cssSelector(shipmentSelector)).click();
+        commmonMethod.waitForAction(1000);
     }
 
 
     public void userEnterGbParcelShipmentQuantity(WebDriver driver, String xlShipmentQuantity) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsQuantity").toString(), xlShipmentQuantity);
-    }
-    public void userEnterGbParcelShipmentLength(WebDriver driver, String xlShipmentLength) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsLength").toString(), xlShipmentLength);
-    }
-    public void userEnterGbParcelShipmentWidth(WebDriver driver, String xlShipmentWidth) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsWidth").toString(), xlShipmentWidth);
-    }
-    public void userEnterGbParcelShipmentHeight(WebDriver driver, String xlShipmentHeight) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsHeight").toString(), xlShipmentHeight);
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsQuantity"), xlShipmentQuantity);
+        commmonMethod.waitForAction(1000);
     }
 
+    public void userEnterGbParcelShipmentLength(WebDriver driver, String xlShipmentLength) {
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsLength"), xlShipmentLength);
+        commmonMethod.waitForAction(1000);
+    }
+
+    public void userEnterGbParcelShipmentWidth(WebDriver driver, String xlShipmentWidth) {
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsWidth"), xlShipmentWidth);
+        commmonMethod.waitForAction(1000);
+    }
+
+    public void userEnterGbParcelShipmentHeight(WebDriver driver, String xlShipmentHeight) {
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsHeight"), xlShipmentHeight);
+        commmonMethod.waitForAction(1000);
+    }
 
     public void userChooseGbParcelQuantityUnit(WebDriver driver, String xlShipmentUnit) {
-        commmonMethod.selectDropdownUsingCssSelector(driver,xpathIDMap.get("gbParcelsQuantityUnits"),xlShipmentUnit);
-
+        commmonMethod.selectDropdownUsingCssSelector(driver,xpathIDMap.get("gbParcelsQuantityUnits"), xlShipmentUnit);
+        commmonMethod.waitForAction(1000);
     }
+
     public void userEnterGbParcelShipmentWeight(WebDriver driver, String xlShipmentWeight) {
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("gbParcelsTotalWeight").toString(), xlShipmentWeight);
+        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("gbParcelsTotalWeight"), xlShipmentWeight);
+        commmonMethod.waitForAction(1000);
     }
-    public void userChooseGbParcelShipmentUnit(WebDriver driver, String xlShipmentWeightUnits) {
-        commmonMethod.selectDropdownUsingCssSelector(driver,xpathIDMap.get("gbParcelsWeightUnits"),xlShipmentWeightUnits);
 
+    public void userChooseGbParcelShipmentUnit(WebDriver driver, String xlShipmentWeightUnits) {
+        commmonMethod.selectDropdownUsingCssSelector(driver,xpathIDMap.get("gbParcelsWeightUnits"), xlShipmentWeightUnits);
+        commmonMethod.waitForAction(1000);
     }
 
     public void userChooseGbParcelShipmentPiecesBeRotated(WebDriver driver, String xlShipmentDoPiecesBeRotated) {
         if (xlShipmentDoPiecesBeRotated.equalsIgnoreCase("Yes")) {
             commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelCanbeRotatedYes").toString());
+            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelCanbeRotatedYes"));
         } else if (xlShipmentDoPiecesBeRotated.equalsIgnoreCase("No")) {
             commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelCanbeRotatedNo").toString());
+            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelCanbeRotatedNo"));
         }
+        commmonMethod.waitForAction(1000);
     }
+
     public void userChooseGbParcelShipmentContainsDangerousGood(WebDriver driver, String xlShipmentDoPiecesContainDangerousGoods) {
         if (xlShipmentDoPiecesContainDangerousGoods.equalsIgnoreCase("Yes")) {
             commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelContainsDangerousGoodsYes").toString());
+            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelContainsDangerousGoodsYes"));
         } else if (xlShipmentDoPiecesContainDangerousGoods.equalsIgnoreCase("No")) {
             commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelContainsDangerousGoodsNo").toString());
+            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelContainsDangerousGoodsNo"));
         }
+        commmonMethod.waitForAction(1000);
     }
+
     public void userChooseGbParcelShipmentBePreScreened(WebDriver driver, String xlShipmentBePreScreened) {
         if (xlShipmentBePreScreened.equalsIgnoreCase("Yes")) {
             commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelPrescreenedYes").toString());
+            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelPrescreenedYes"));
         } else if (xlShipmentBePreScreened.equalsIgnoreCase("No")) {
             commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelPrescreenedNo").toString());
+            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelPrescreenedNo"));
         }
-    }
-    public void userClicksOnGbParcelViewShippingOptions(WebDriver driver){
-        commmonMethod.waitUntilCssSelectorElementIsClickable(driver, xpathIDMap.get("gbParcelViewShippingOptions").toString());
+        commmonMethod.waitForAction(1000);
     }
 
+    public void userClicksOnGbFindFlights(WebDriver driver) {
+        commmonMethod.waitUntilCssSelectorElementIsClickable(driver, xpathIDMap.get("gbParcelViewShippingOptions"));
+    }
+
+    public void userSelectOneFlight(WebDriver driver) {
+        commmonMethod.waitForAction(2000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class='modal-dialog ']")));
+        commmonMethod.waitForAction(5000);
+        // div[class='price-per-unit'] button
+        // div[class='column flightInformation'] + div[class='column'] a
+//        commmonMethod.waitUntilCssSelectorElementIsClickable(driver, xpathIDMap.get("div[class='column flightInformation'] + div[class='column'] a"));
+        driver.findElement(By.cssSelector("div[class='column flightInformation'] + div[class='column'] a")).click();
+    }
+
+    public void userWaitsToFillsCargoShipmentRequest(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
+        // dc-loader ng-isolate-scope
+//        driver.findElement(By.cssSelector("dc-loader ng-isolate-scope")).isDisplayed();
+         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("span img[alt='loading']")));
+        // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//main[@id='mainContent']")));
+         commmonMethod.waitForAction(2000);
+    }
+
+    public void userEnterRecipientDetails(WebDriver driver, String[] recipientInfo) {
+        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientAccountNumber"), recipientInfo[0]);
+        commmonMethod.waitForAction(200);
+        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientFullName"), recipientInfo[1]);
+        commmonMethod.waitForAction(200);
+        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientCountry"), recipientInfo[2]);
+        commmonMethod.waitForAction(200);
+        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientAddress"), recipientInfo[3]);
+        commmonMethod.waitForAction(200);
+        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientCity"), recipientInfo[4]);
+        commmonMethod.waitForAction(200);
+        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientState"), recipientInfo[5]);
+        commmonMethod.waitForAction(200);
+        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("RecipientPostalCode"), recipientInfo[6]);
+        commmonMethod.waitForAction(200);
+        System.out.println("\n\n&&&&&&&&&&&&&&&&& SUCCESS &&&&&&&&&&&&&&&&&\n\n");
+    }
 }

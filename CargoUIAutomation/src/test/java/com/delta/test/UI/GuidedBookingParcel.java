@@ -54,12 +54,24 @@ public class GuidedBookingParcel extends BaseTest {
             guidedBooking.userChooseGbParcelShipmentContainsDangerousGood(driver,xlShipmentDoPiecesContainDangerousGoods);
             guidedBooking.userChooseGbParcelShipmentPiecesBeRotated(driver,xlShipmentDoPiecesBeRotated);
             guidedBooking.userChooseGbParcelShipmentBePreScreened(driver,xlShipmentBePreScreened);
-            guidedBooking.userClicksOnGbParcelViewShippingOptions(driver);
-            System.out.println("xlShipmentWeightUnits  "+xlShipmentWeightUnits);
-            Thread.sleep(20000);
-
+            guidedBooking.userClicksOnGbFindFlights(driver);
+            guidedBooking.userSelectOneFlight(driver);
+            guidedBooking.userWaitsToFillsCargoShipmentRequest(driver);
+            String xlRecipientAccountNumber = (String) eachRowMap.get("RecipientInformationAccountNumber");
+            String xlRecipientFullName = "FNU LNU";
+            String xlRecipientCountry = "USA";
+            String xlRecipientAddress = (String) eachRowMap.get("Address1");
+            String xlRecipientCity = (String) eachRowMap.get("City");
+            String xlRecipientState = (String) eachRowMap.get("State");
+            String xlRecipientPostalCode = (String) eachRowMap.get("Postal");
+            guidedBooking.userEnterRecipientDetails(driver, new String[]{xlRecipientAccountNumber,
+                    xlRecipientFullName,
+                    xlRecipientCountry,
+                    xlRecipientAddress,
+                    xlRecipientCity,
+                    xlRecipientState,
+                    xlRecipientPostalCode});
             Reporter.log("user logged In Sucessfully");
-
         } else {
             throw new SkipException("Test Ignored");
         }
@@ -108,7 +120,7 @@ public class GuidedBookingParcel extends BaseTest {
             guidedBooking.userChooseGbParcelShipmentContainsDangerousGood(driver,xlShipmentDoPiecesContainDangerousGoods);
             guidedBooking.userChooseGbParcelShipmentPiecesBeRotated(driver,xlShipmentDoPiecesBeRotated);
             guidedBooking.userChooseGbParcelShipmentBePreScreened(driver,xlShipmentBePreScreened);
-            guidedBooking.userClicksOnGbParcelViewShippingOptions(driver);
+            guidedBooking.userClicksOnGbFindFlights(driver);
             System.out.println("xlShipmentWeightUnits  "+xlShipmentWeightUnits);
             Thread.sleep(20000);
 
