@@ -20,77 +20,72 @@ import java.util.Map;
 import java.util.Random;
 
 public class GuidedBooking {
-    Map<String, String> xpathIDMap = new HashMap<String, String>();
+    Map<String, String> xpathIDMap;
     ExcelRead excelRead = new ExcelRead();
-    CommonMethod commmonMethod = new CommonMethod();
-    Login login = new Login();
-    WebDriver driver;
+    CommonMethod commonMethod = new CommonMethod();
+
     public GuidedBooking() {
         Login login = new Login();
         this.xpathIDMap = login.getXpathIDMap();
     }
     public Map<String, Object> excelReadTestData(String workSheetName, String testCaseName) {
-
-        Map<String, Object> eachRowMap = new HashMap<String, Object>();
+        Map<String, Object> eachRowMap = new HashMap<>();
         String inputTestFile = "src/test/resources/TestCasesMapping.xlsx";
-        String xpathDataFile = "src/test/resources/XpathTestData.xlsx";
-        Map<String, Map<String, Object>> getConfigurationSheet = excelRead.getConfigurationSheet(inputTestFile);
+//        String xpathDataFile = "src/test/resources/XpathTestData.xlsx";
+//        Map<String, Map<String, Object>> getConfigurationSheet = excelRead.getConfigurationSheet(inputTestFile);
         List<String> getTestCaseMasterSheet = excelRead.getTestCaseMasterSheet(inputTestFile);
         Map<String, List<Map<String, Object>>> readInputTestCaseFile = excelRead.readInputTestCaseFile(inputTestFile, getTestCaseMasterSheet);
 
-
         for (Map.Entry<String, List<Map<String, Object>>> entry : readInputTestCaseFile.entrySet()) {
-
             String keyHeading = entry.getKey();
             // String KeyValue = entry.getValue().toString();
             List<Map<String, Object>> TestCasesValue = entry.getValue();
             //System.out.println("TestCasesValue- - - "+TestCasesValue);
-            if (keyHeading.equalsIgnoreCase(workSheetName)) {// passing the worksheetname example ABGeneralCargo
 
+            if (keyHeading.equalsIgnoreCase(workSheetName)) {// passing the work sheet name example ABGeneralCargo
                 for (Map<String, Object> stringObjectMap : TestCasesValue) {
                     eachRowMap = stringObjectMap;
                     String xlTestCaseName = eachRowMap.get("TestCases").toString();
                     System.out.println("xlTestCaseName- - " + xlTestCaseName);
                     if (xlTestCaseName.equalsIgnoreCase(testCaseName)) {
-                        eachRowMap = stringObjectMap;
+//                        eachRowMap = stringObjectMap;
                         System.out.println(eachRowMap);
                         System.out.println("Testcase- - -" + eachRowMap.get("TestCases"));
                         System.out.println("ShipmentContains- - --" + eachRowMap.get("ShipmentContains"));
                         break;
                     }
-
                 }
-
-
                 // System.out.println("keyHeading - - -"+keyHeading+" /n"+ "KeyValue- - - "+ KeyValue);
                 // if(TestCasesValue.get(1)) {
-
             }
         }
         return eachRowMap;
-
     }
+
     public void userClicksOnTheGuidedBookingOption(WebDriver driver){
-        commmonMethod.waitUntilCssSelectorElementIsClickable(driver, xpathIDMap.get("abbookAShipment").toString());
+        commonMethod.waitUntilCssSelectorElementIsClickable(driver, xpathIDMap.get("abbookAShipment"));
+        commonMethod.waitUntilXpathElementIsClickable(driver, xpathIDMap.get("gbGuided"));
+    }
 
-        commmonMethod.waitUntilXpathElementIsClickable(driver, xpathIDMap.get("gbGuided").toString());
-    }
     public void userSelectsGbShipmentTypes(WebDriver driver){
-        commmonMethod.waitUntilXpathElementIsClickable(driver, xpathIDMap.get("gbParcels").toString());
+        commonMethod.waitUntilXpathElementIsClickable(driver, xpathIDMap.get("gbParcels"));
     }
+
     public void userEnterGbParcelShipmentOrigin(WebDriver driver, String xlShipmentOrigin){
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsOrigin").toString(),xlShipmentOrigin);
+        commonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsOrigin"), xlShipmentOrigin);
     }
-    public void userEnterGbParcelShipmentDestination(WebDriver driver, String xlShipmentDestination) throws InterruptedException {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsDestination").toString(),xlShipmentDestination);
-        commmonMethod.waitUntilCssSelectorElementIsClickable(driver,xpathIDMap.get("gbParcelFlightInformation").toString());
-        commmonMethod.waitForAction(2000);
+
+    public void userEnterGbParcelShipmentDestination(WebDriver driver, String xlShipmentDestination) {
+        commonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsDestination"), xlShipmentDestination);
+        commonMethod.waitUntilCssSelectorElementIsClickable(driver,xpathIDMap.get("gbParcelFlightInformation"));
+        commonMethod.waitForAction(2000);
     }
+
     public void userClickOnGbParcelShipmentDatePicker(WebDriver driver) {
         DatePicker datePicker = new DatePicker(driver, xpathIDMap);
         datePicker.openCalendar();
         datePicker.selectDate();
-        commmonMethod.waitForAction(2000);
+        commonMethod.waitForAction(2000);
     }
 
     public void userSelectGbParcelDepartureTime(WebDriver driver) {
@@ -98,7 +93,7 @@ public class GuidedBooking {
         Select departureTime = new Select(driver.findElement(By.cssSelector(xpathIDMap.get("gbParcelsDepartureTimeSelector"))));
         int index = new Random().nextInt(departureTimes.length);
         departureTime.selectByValue(departureTimes[index]);
-        commmonMethod.waitForAction(1000);
+        commonMethod.waitForAction(1000);
     }
 
     public void userSelectDeliveryType(WebDriver driver) {
@@ -109,80 +104,79 @@ public class GuidedBooking {
         // int index = new Random().nextInt(shipmentTypes.length);
         String shipmentSelector = String.format(xpathIDMap.get("gbParcelsShipmentServiceDeliveryType"), shipmentTypes[index]);
         driver.findElement(By.cssSelector(shipmentSelector)).click();
-        commmonMethod.waitForAction(1000);
+        commonMethod.waitForAction(1000);
     }
 
-
     public void userEnterGbParcelShipmentQuantity(WebDriver driver, String xlShipmentQuantity) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsQuantity"), xlShipmentQuantity, Keys.TAB);
-        commmonMethod.waitForAction(1000);
+        commonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsQuantity"), xlShipmentQuantity, Keys.TAB);
+        commonMethod.waitForAction(1000);
     }
 
     public void userEnterGbParcelShipmentLength(WebDriver driver, String xlShipmentLength) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsLength"), xlShipmentLength, Keys.TAB);
-        commmonMethod.waitForAction(1000);
+        commonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsLength"), xlShipmentLength, Keys.TAB);
+        commonMethod.waitForAction(1000);
     }
 
     public void userEnterGbParcelShipmentWidth(WebDriver driver, String xlShipmentWidth) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsWidth"), xlShipmentWidth, Keys.TAB);
-        commmonMethod.waitForAction(1000);
+        commonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsWidth"), xlShipmentWidth, Keys.TAB);
+        commonMethod.waitForAction(1000);
     }
 
     public void userEnterGbParcelShipmentHeight(WebDriver driver, String xlShipmentHeight) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsHeight"), xlShipmentHeight, Keys.TAB);
-        commmonMethod.waitForAction(1000);
+        commonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsHeight"), xlShipmentHeight, Keys.TAB);
+        commonMethod.waitForAction(1000);
     }
 
     public void userChooseGbParcelQuantityUnit(WebDriver driver, String xlShipmentUnit) {
-        commmonMethod.selectDropdownUsingCssSelector(driver,xpathIDMap.get("gbParcelsQuantityUnits"), xlShipmentUnit);
-        commmonMethod.waitForAction(1000);
+        commonMethod.selectDropdownUsingCssSelector(driver,xpathIDMap.get("gbParcelsQuantityUnits"), xlShipmentUnit);
+        commonMethod.waitForAction(1000);
     }
 
     public void userEnterGbParcelShipmentWeight(WebDriver driver, String xlShipmentWeight) {
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("gbParcelsTotalWeight"), xlShipmentWeight, Keys.TAB);
-        commmonMethod.waitForAction(1000);
+        commonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("gbParcelsTotalWeight"), xlShipmentWeight, Keys.TAB);
+        commonMethod.waitForAction(1000);
     }
 
     public void userChooseGbParcelShipmentUnit(WebDriver driver, String xlShipmentWeightUnits) {
-        commmonMethod.selectDropdownUsingCssSelector(driver,xpathIDMap.get("gbParcelsWeightUnits"), xlShipmentWeightUnits);
-        commmonMethod.waitForAction(1000);
+        commonMethod.selectDropdownUsingCssSelector(driver,xpathIDMap.get("gbParcelsWeightUnits"), xlShipmentWeightUnits);
+        commonMethod.waitForAction(1000);
     }
 
     public void userChooseGbParcelShipmentPiecesBeRotated(WebDriver driver, String xlShipmentDoPiecesBeRotated) {
         if (xlShipmentDoPiecesBeRotated.equalsIgnoreCase("Yes")) {
-            commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelCanbeRotatedYes"));
+            commonMethod.waitForPageLoad(driver);
+            commonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelCanbeRotatedYes"));
         } else if (xlShipmentDoPiecesBeRotated.equalsIgnoreCase("No")) {
-            commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelCanbeRotatedNo"));
+            commonMethod.waitForPageLoad(driver);
+            commonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelCanbeRotatedNo"));
         }
-        commmonMethod.waitForAction(1000);
+        commonMethod.waitForAction(1000);
     }
 
     public void userChooseGbParcelShipmentContainsDangerousGood(WebDriver driver, String xlShipmentDoPiecesContainDangerousGoods) {
         if (xlShipmentDoPiecesContainDangerousGoods.equalsIgnoreCase("Yes")) {
-            commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelContainsDangerousGoodsYes"));
+            commonMethod.waitForPageLoad(driver);
+            commonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelContainsDangerousGoodsYes"));
         } else if (xlShipmentDoPiecesContainDangerousGoods.equalsIgnoreCase("No")) {
-            commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelContainsDangerousGoodsNo"));
+            commonMethod.waitForPageLoad(driver);
+            commonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelContainsDangerousGoodsNo"));
         }
-        commmonMethod.waitForAction(1000);
+        commonMethod.waitForAction(1000);
     }
 
     public void userChooseGbParcelShipmentBePreScreened(WebDriver driver, String xlShipmentBePreScreened) {
         if (xlShipmentBePreScreened.equalsIgnoreCase("Yes")) {
-            commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelPrescreenedYes"));
+            commonMethod.waitForPageLoad(driver);
+            commonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelPrescreenedYes"));
         } else if (xlShipmentBePreScreened.equalsIgnoreCase("No")) {
-            commmonMethod.waitForPageLoad(driver);
-            commmonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelPrescreenedNo"));
+            commonMethod.waitForPageLoad(driver);
+            commonMethod.ClickOnRadiobutton(driver, xpathIDMap.get("gbParcelPrescreenedNo"));
         }
-        commmonMethod.waitForAction(1000);
+        commonMethod.waitForAction(1000);
     }
 
     public void userClicksOnGbFindFlights(WebDriver driver) {
-        commmonMethod.waitUntilCssSelectorElementIsClickable(driver, xpathIDMap.get("gbParcelViewShippingOptions"));
+        commonMethod.waitUntilCssSelectorElementIsClickable(driver, xpathIDMap.get("gbParcelViewShippingOptions"));
     }
 
     public void userSelectOneFlight(WebDriver driver) {
@@ -191,7 +185,7 @@ public class GuidedBooking {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(xpathIDMap.get("gbShipmentFlightSearch"))));
         // Wait for the flight search results to be displayed
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpathIDMap.get("gbShipmentFlightSearchResults")))));
-        commmonMethod.waitForAction(2000);
+        commonMethod.waitForAction(2000);
         driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFlightStandardSelection"))).click();
     }
 
@@ -213,35 +207,35 @@ public class GuidedBooking {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2000));
         waitForLoaderProgressBar(driver, wait);
         // Enter recipient account number and the rest of the form will be autofill by system
-        commmonMethod.waitForAction(2000);
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("ShipmentDescription"), recipientInfo[0]);
-        commmonMethod.waitForAction(200);
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("RecipientAccountNumber"), recipientInfo[1]);
-        commmonMethod.waitForAction(200);
+        commonMethod.waitForAction(2000);
+        commonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("ShipmentDescription"), recipientInfo[0]);
+        commonMethod.waitForAction(200);
+        commonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("RecipientAccountNumber"), recipientInfo[1]);
+        commonMethod.waitForAction(200);
 
         // Wait for loader to go away and display charge confirmation and then click 'Accept'
         waitForLoaderProgressBar(driver, wait);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(xpathIDMap.get("gbDisplayChargeConfirmation")))));
-        commmonMethod.waitForAction(200);
+        commonMethod.waitForAction(200);
         driver.findElement(By.cssSelector(xpathIDMap.get("gbChargeConfirmationAccept"))).click();
         waitForLoaderProgressBar(driver, wait);
 
         // Select Payment method
         driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentPaymentMethod"))).click();
-        commmonMethod.waitForAction(200);
+        commonMethod.waitForAction(200);
         // Select one available credit card (first one)
         driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentPaymentWithFirstCreditCard"))).click();
-        commmonMethod.waitForAction(200);
+        commonMethod.waitForAction(200);
         // Select agreement check box
         driver.findElement(By.xpath(xpathIDMap.get("gbShipmentOptInFlag"))).click();
-        commmonMethod.waitForAction(200);
+        commonMethod.waitForAction(200);
 
         // Submit shipment confirmation
         driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFinalConfirmation"))).click();
 
         waitForLoaderProgressBar(driver, wait);
 
-        commmonMethod.waitForAction(200);
+        commonMethod.waitForAction(200);
         driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFinalConfirmationSubmit"))).click();
 
         waitForLoaderProgressBar(driver, wait);
