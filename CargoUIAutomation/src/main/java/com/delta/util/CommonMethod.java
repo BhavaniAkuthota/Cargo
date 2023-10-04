@@ -26,8 +26,6 @@ public class CommonMethod {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         WebElement element = driver.findElement(By.cssSelector(xlWebElement));
         executor.executeScript("arguments[0].click();", element);
-
-
     }
 
     public void waitUntilXpathElementIsClickable(WebDriver driver, String xlWebElement) {
@@ -36,8 +34,14 @@ public class CommonMethod {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         WebElement element = driver.findElement(By.xpath(xlWebElement));
         executor.executeScript("arguments[0].click();", element);
+    }
 
-
+    public void sendkeysUsingXpath(WebDriver driver, String xlWebElement, String sendKeyValue, Keys specialKey) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xlWebElement)));
+        driver.findElement(By.xpath(xlWebElement)).sendKeys(sendKeyValue);
+        driver.findElement(By.xpath(xlWebElement)).sendKeys(specialKey);
+        waitForAction(200);
     }
 
 
@@ -55,6 +59,14 @@ public class CommonMethod {
 //        WebElement element = driver.findElement(By.cssSelector(xlWebElement));
 //        executor.executeScript("arguments[0].value='" + sendKeyValue + "';", element);
 //        executor.executeScript("arguments[0].click();", element);
+    }
+
+    public void sendkeysUsingCssSelector(WebDriver driver, String xlWebElement, String sendKeyValue, Keys specialKey) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(xlWebElement)));
+        driver.findElement(By.cssSelector(xlWebElement)).sendKeys(sendKeyValue);
+        driver.findElement(By.cssSelector(xlWebElement)).sendKeys(specialKey);
+        waitForAction(200);
     }
 
     public void sendkeysUsingCssSelector(WebDriver driver, String xlWebElement, String sendKeyValue)  {

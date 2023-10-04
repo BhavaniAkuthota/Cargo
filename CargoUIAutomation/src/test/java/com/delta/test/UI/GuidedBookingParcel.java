@@ -14,9 +14,9 @@ public class GuidedBookingParcel extends BaseTest {
     GuidedBooking guidedBooking = new GuidedBooking();
     @Test(priority=1)
     public void createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic() throws InterruptedException {
-        String testCaseSheetName="GBParcel";
-        String testCaseName="createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic";
-        Map<String, Object> eachRowMap=guidedBooking.excelReadTestData(testCaseSheetName,testCaseName);
+        String testCaseSheetName = "GBParcel";
+        String testCaseName = "createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic";
+        Map<String, Object> eachRowMap = guidedBooking.excelReadTestData(testCaseSheetName,testCaseName);
         String execution=(String) eachRowMap.get("Execution");
         System.out.println("execution  "+execution);
         if(execution.equalsIgnoreCase("Yes")) {
@@ -58,23 +58,10 @@ public class GuidedBookingParcel extends BaseTest {
             guidedBooking.userSelectOneFlight(driver);
             guidedBooking.userWaitsToFillCargoShipmentRequest(driver);
             String xlRecipientAccountNumber = (String) eachRowMap.get("RecipientInformationAccountNumber");
-            // Fix below 3 properties, no test data provided in the spreadsheet
-            String xlShipmentDescription = "Sample shipment";
-            String xlRecipientFullName = "FNU LNU";
-            String xlRecipientCountry = "USA";
-            String xlRecipientAddress = (String) eachRowMap.get("Address1");
-            String xlRecipientCity = (String) eachRowMap.get("City");
-            String xlRecipientState = (String) eachRowMap.get("State");
-            String xlRecipientPostalCode = (String) eachRowMap.get("Postal");
+            String xlShipmentDescription = (String) eachRowMap.get("ShipmentDescription");
             guidedBooking.userEnterRecipientDetails(driver, new String[]{xlShipmentDescription,
-                    xlRecipientAccountNumber,
-                    xlRecipientFullName,
-                    xlRecipientCountry,
-                    xlRecipientAddress,
-                    xlRecipientCity,
-                    xlRecipientState,
-                    xlRecipientPostalCode});
-            Reporter.log("user logged In Sucessfully");
+                    xlRecipientAccountNumber});
+            Reporter.log("user logged In Successfully");
         } else {
             throw new SkipException("Test Ignored");
         }

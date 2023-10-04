@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -113,22 +114,22 @@ public class GuidedBooking {
 
 
     public void userEnterGbParcelShipmentQuantity(WebDriver driver, String xlShipmentQuantity) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsQuantity"), xlShipmentQuantity);
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsQuantity"), xlShipmentQuantity, Keys.TAB);
         commmonMethod.waitForAction(1000);
     }
 
     public void userEnterGbParcelShipmentLength(WebDriver driver, String xlShipmentLength) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsLength"), xlShipmentLength);
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsLength"), xlShipmentLength, Keys.TAB);
         commmonMethod.waitForAction(1000);
     }
 
     public void userEnterGbParcelShipmentWidth(WebDriver driver, String xlShipmentWidth) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsWidth"), xlShipmentWidth);
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsWidth"), xlShipmentWidth, Keys.TAB);
         commmonMethod.waitForAction(1000);
     }
 
     public void userEnterGbParcelShipmentHeight(WebDriver driver, String xlShipmentHeight) {
-        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsHeight"), xlShipmentHeight);
+        commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("gbParcelsHeight"), xlShipmentHeight, Keys.TAB);
         commmonMethod.waitForAction(1000);
     }
 
@@ -138,7 +139,7 @@ public class GuidedBooking {
     }
 
     public void userEnterGbParcelShipmentWeight(WebDriver driver, String xlShipmentWeight) {
-        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("gbParcelsTotalWeight"), xlShipmentWeight);
+        commmonMethod.sendkeysUsingXpath(driver, xpathIDMap.get("gbParcelsTotalWeight"), xlShipmentWeight, Keys.TAB);
         commmonMethod.waitForAction(1000);
     }
 
@@ -187,15 +188,15 @@ public class GuidedBooking {
     public void userSelectOneFlight(WebDriver driver) {
         // Wait for flight search dialog goes away
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class='modal-dialog ']")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(xpathIDMap.get("gbShipmentFlightSearch"))));
         // Wait for the flight search results to be displayed
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//dc-flight-search-results"))));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpathIDMap.get("gbShipmentFlightSearchResults")))));
         commmonMethod.waitForAction(2000);
-        driver.findElement(By.cssSelector("div[class='column flightInformation'] + div[class='column'] a")).click();
+        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFlightStandardSelection"))).click();
     }
 
     public void userWaitsToFillCargoShipmentRequest(WebDriver driver) {
-        WebElement chargesConfirmationPage = driver.findElement(By.xpath("//main[@id='mainContent']"));
+        WebElement chargesConfirmationPage = driver.findElement(By.xpath(xpathIDMap.get("gbShipmentChargeConfirmation")));
         if (chargesConfirmationPage == null) {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2000));
             waitForLoaderProgressBar(driver, wait);
@@ -203,7 +204,7 @@ public class GuidedBooking {
     }
 
     private void waitForLoaderProgressBar(WebDriver driver, WebDriverWait wait) {
-        By loader = By.cssSelector("span img[alt='loading']");
+        By loader = By.cssSelector(xpathIDMap.get("gbLoadingWait"));
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(loader)));
         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(loader)));
     }
@@ -211,38 +212,46 @@ public class GuidedBooking {
     public void userEnterRecipientDetails(WebDriver driver, String[] recipientInfo) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2000));
         waitForLoaderProgressBar(driver, wait);
+        // Enter recipient account number and the rest of the form will be autofill by system
         commmonMethod.waitForAction(2000);
         commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("ShipmentDescription"), recipientInfo[0]);
         commmonMethod.waitForAction(200);
         commmonMethod.sendkeysUsingCssSelector(driver, xpathIDMap.get("RecipientAccountNumber"), recipientInfo[1]);
         commmonMethod.waitForAction(200);
 
+        // Wait for loader to go away and display charge confirmation and then click 'Accept'
         waitForLoaderProgressBar(driver, wait);
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("body[class='modal-open']"))));
-        driver.findElement(By.cssSelector("button[class='btn blue-btn ng-binding']")).click();
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(xpathIDMap.get("gbDisplayChargeConfirmation")))));
+        commmonMethod.waitForAction(200);
+        driver.findElement(By.cssSelector(xpathIDMap.get("gbChargeConfirmationAccept"))).click();
         waitForLoaderProgressBar(driver, wait);
 
         // Select Payment method
-        driver.findElement(By.cssSelector("input[id='bopaymentTypeCreditCard'] + label[for='bopaymentTypeCreditCard']")).click();
+        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentPaymentMethod"))).click();
         commmonMethod.waitForAction(200);
         // Select one credit available credit card
-        driver.findElement(By.cssSelector("input[id='bosavedCardData-1'] + label[for='bosavedCardData-1']")).click();
+        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentPaymentWithFirstCreditCard"))).click();
         commmonMethod.waitForAction(200);
         // Select agreement check box
-        driver.findElement(By.xpath("//label[@for='bosubscriptionOptFlag']")).click();
+        driver.findElement(By.xpath(xpathIDMap.get("gbShipmentOptInFlag"))).click();
         commmonMethod.waitForAction(200);
 
         // Submit shipment confirmation
-        driver.findElement(By.cssSelector("button[type='button'] + button[type='submit']")).click();
+        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFinalConfirmation"))).click();
 
         waitForLoaderProgressBar(driver, wait);
 
-        driver.findElement(By.cssSelector("button[class='btn blue-btn ng-binding']")).click();
+        commmonMethod.waitForAction(200);
+        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFinalConfirmationSubmit"))).click();
 
         waitForLoaderProgressBar(driver, wait);
 
         // Confirmed Booking Page is displayed
-        WebElement confirmedBookingPage = driver.findElement(By.xpath("//div[@id='dc-print']"));
+        WebElement confirmedBookingPage = driver.findElement(By.xpath(xpathIDMap.get("gbShipmentBookingConfirmation")));
         assert (confirmedBookingPage != null);
+        WebElement airwayBill = driver.findElement(By.xpath(xpathIDMap.get("gbShipmentAirwayBillNumber")));
+        assert (airwayBill != null);
+        System.out.println("%%%%%%%%%%%%%% Airway Bill: " + airwayBill.getText() + " %%%%%%%%%%%%%%");
+        Assert.assertFalse(airwayBill.getText().isBlank());
     }
 }
