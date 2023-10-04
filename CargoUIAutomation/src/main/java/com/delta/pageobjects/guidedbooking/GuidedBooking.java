@@ -229,7 +229,7 @@ public class GuidedBooking {
         // Select Payment method
         driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentPaymentMethod"))).click();
         commmonMethod.waitForAction(200);
-        // Select one credit available credit card
+        // Select one available credit card (first one)
         driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentPaymentWithFirstCreditCard"))).click();
         commmonMethod.waitForAction(200);
         // Select agreement check box
@@ -248,9 +248,9 @@ public class GuidedBooking {
 
         // Confirmed Booking Page is displayed
         WebElement confirmedBookingPage = driver.findElement(By.xpath(xpathIDMap.get("gbShipmentBookingConfirmation")));
-        assert (confirmedBookingPage != null);
+        Assert.assertNotNull (confirmedBookingPage);
         WebElement airwayBill = driver.findElement(By.xpath(xpathIDMap.get("gbShipmentAirwayBillNumber")));
-        assert (airwayBill != null);
+        Assert.assertNotNull(airwayBill);
         System.out.println("%%%%%%%%%%%%%% Airway Bill: " + airwayBill.getText() + " %%%%%%%%%%%%%%");
         Assert.assertFalse(airwayBill.getText().isBlank());
     }
