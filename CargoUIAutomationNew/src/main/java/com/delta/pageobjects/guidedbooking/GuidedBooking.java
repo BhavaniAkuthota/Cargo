@@ -165,7 +165,7 @@ public class GuidedBooking {
         commonMethod.waitUntilCssSelectorElementIsClickable(xpathIDMap.get("gbParcelViewShippingOptions"));
     }
 
-    public void userSelectOneFlight() {
+    public void userSelectOneFlightStandard() {
         // Wait for flight search dialog goes away
         commonMethod.waitUntilElementIsClickable(xpathIDMap.get("gbShipmentFlightSearch"));
         commonMethod.waitUntilElementIsClickable(xpathIDMap.get("gbShipmentFlightSearchResults"));
@@ -234,7 +234,7 @@ public class GuidedBooking {
         // Wait for the flight search results to be displayed
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpathIDMap.get("gbShipmentFlightSearchResults")))));
         commonMethod.waitForAction(2000);
-        driver.findElement(By.xpath(xpathIDMap.get("gbShipmentFlightDashSelection"))).click();
+        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFlightDashSelection"))).click();
     }
     public void userSelectOneFlightDashCritical() {
         // Wait for flight search dialog goes away

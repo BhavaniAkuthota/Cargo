@@ -6,23 +6,36 @@ import com.delta.util.BaseTest;
 import com.delta.util.Login;
 import org.testng.Reporter;
 import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 import java.util.Map;
 
+import static org.testng.AssertJUnit.fail;
+
 public class GuidedBookingParcel extends BaseTest {
 
-
+    @AfterTest
+    public void afterEach() {
+        driver.close();
+    }
 
     @Test(priority=1 )
     public void createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic() throws InterruptedException {
+        fillParcelForm("createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic", "STANDARD", true);
+    }
 
+    @Test(priority=2)
+    public void createAndConfirmGuidedBookingForParcels_DSH_NA_Domestic() throws InterruptedException {
+        fillParcelForm("createAndConfirmGuidedBookingForParcels_DSH_NA_Domestic", "DASH", false);
+    }
+
+    private void fillParcelForm(String testCaseName, String flightOption, boolean addAdditionalParcels) {
         Login login=new Login(driver);
         GuidedBooking guidedBooking = new GuidedBooking(driver);
 
         String testCaseSheetName = "GBParcel";
-        String testCaseName = "createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic";
-        Map<String, Object> eachRowMap = login.excelReadTestData(testCaseSheetName,testCaseName);
+        Map<String, Object> eachRowMap = login.excelReadTestData(testCaseSheetName, testCaseName);
         String execution=(String) eachRowMap.get("Execution");
 
         if(execution.equalsIgnoreCase("Yes")) {
@@ -44,7 +57,7 @@ public class GuidedBookingParcel extends BaseTest {
             String xlShipmentDescription = (String) eachRowMap.get("ShipmentDescription");
 
             //CODE
-            login.userLoginAsDomesticAccount(loginUsername,loginPassword);
+            login.userLoginAsDomesticAccount(loginUsername, loginPassword);
             guidedBooking.userClicksOnTheGuidedBookingOption();
             guidedBooking.userSelectsGbShipmentTypes();
             guidedBooking.userEnterGbParcelShipmentOrigin(xlShipmentOrigin);
@@ -53,12 +66,16 @@ public class GuidedBookingParcel extends BaseTest {
             guidedBooking.userSelectGbParcelDepartureTime();
             guidedBooking.userSelectDeliveryType();
 
+            // Enter quantity, length, weight, height and Units
             Parcel parcel = new Parcel(xlShipmentQuantity, xlShipmentLength, xlShipmentWidth, xlShipmentHeight, xlShipmentQuantityUnit);
             // Enter details of default Parcel
-            addParcel(guidedBooking, parcel, 1, false);
-            // Now add few more parcels
-            for (int i = 0; i < 3; i++) {
-                addParcel(guidedBooking, parcel, i + 2, true);
+            addParcel(guidedBooking, parcel, 1);
+            if (addAdditionalParcels) {
+                // Now add few more parcels
+                for (int i = 0; i < 3; i++) {
+                    guidedBooking.userChooseAddParcel();
+                    addParcel(guidedBooking, parcel, i + 2);
+                }
             }
 
             guidedBooking.userEnterGbParcelShipmentWeight(xlShipmentWeight);
@@ -67,7 +84,19 @@ public class GuidedBookingParcel extends BaseTest {
             guidedBooking.userChooseGbParcelShipmentPiecesBeRotated(xlShipmentDoPiecesBeRotated);
             guidedBooking.userChooseGbParcelShipmentBePreScreened(xlShipmentBePreScreened);
             guidedBooking.userClicksOnGbFindFlights();
-            guidedBooking.userSelectOneFlight();
+
+            // Select flight option
+            switch (flightOption) {
+                case "STANDARD":
+                    guidedBooking.userSelectOneFlightStandard();
+                    break;
+                case "DASH":
+                    guidedBooking.userSelectOneFlightDash();
+                    break;
+                default:
+                    fail("Invalid flight option is provided");
+            }
+
             guidedBooking.userWaitsToFillCargoShipmentRequest();
             guidedBooking.userEnterRecipientDetails( new String[]{xlShipmentDescription,
                     xlRecipientAccountNumber});
@@ -77,72 +106,11 @@ public class GuidedBookingParcel extends BaseTest {
         }
     }
 
-    private void addParcel(GuidedBooking guidedBooking, Parcel parcel, int index, boolean addParcel) {
-        if (addParcel) {
-            guidedBooking.userChooseAddParcel();
-        }
+    private void addParcel(GuidedBooking guidedBooking, Parcel parcel, int index) {
         guidedBooking.userEnterGbParcelShipmentQuantity(parcel.getShipmentQuantity(), index);
         guidedBooking.userEnterGbParcelShipmentLength(parcel.getShipmentLength(), index);
-            guidedBooking.userEnterGbParcelShipmentWidth(parcel.getShipmentWidth(), index);
+        guidedBooking.userEnterGbParcelShipmentWidth(parcel.getShipmentWidth(), index);
         guidedBooking.userEnterGbParcelShipmentHeight(parcel.getShipmentHeight(), index);
         guidedBooking.userChooseGbParcelQuantityUnit(parcel.getShipmentUnit(), index);
-    }
-
-    @Test(priority=2)
-    public void createAndConfirmGuidedBookingForParcels_DSH_NA_Domestic() throws InterruptedException {
-
-        Login login=new Login(driver);
-        GuidedBooking guidedBooking = new GuidedBooking(driver);
-
-        String testCaseSheetName = "GBParcel";
-        String testCaseName = "";
-        Map<String, Object> eachRowMap = login.excelReadTestData(testCaseSheetName,testCaseName);
-        String execution=(String) eachRowMap.get("Execution");
-        if(execution.equalsIgnoreCase("Yes")) {
-            String loginUsername = (String) eachRowMap.get("LoginUsername");
-            String loginPassword = (String) eachRowMap.get("LoginPassword");
-            String xlShipmentOrigin = (String) eachRowMap.get("ShipmentOrigin");
-            String xlShipmentDestination = (String) eachRowMap.get("ShipmentDestination");
-            String xlShipmentWeight = (String) eachRowMap.get("ShipmentWeight");
-            String xlShipmentWeightUnits = (String) eachRowMap.get("ShipmentWeightUnits");
-            String xlShipmentQuantity=(String) eachRowMap.get("ShipmentQuantity");
-            String xlShipmentLength = (String) eachRowMap.get("ShipmentLength");
-            String xlShipmentWidth = (String) eachRowMap.get("ShipmentWidth");
-            String xlShipmentHeight = (String) eachRowMap.get("ShipmentHeight");
-            String xlShipmentQuantityUnit = (String) eachRowMap.get("ShipmentUnit");
-            String xlShipmentDoPiecesContainDangerousGoods = (String) eachRowMap.get("ShipmentDoPiecesContainDangerousGoods");
-            String xlShipmentDoPiecesBeRotated = (String) eachRowMap.get("ShipmentDoPiecesBeRotated");
-            String xlShipmentBePreScreened = (String) eachRowMap.get("ShipmentBePreScreened");
-            String xlRecipientAccountNumber = (String) eachRowMap.get("RecipientInformationAccountNumber");
-            String xlShipmentDescription = (String) eachRowMap.get("ShipmentDescription");
-
-            //CODE
-            login.userLoginAsDomesticAccount(loginUsername,loginPassword);
-            guidedBooking.userClicksOnTheGuidedBookingOption();
-            guidedBooking.userSelectsGbShipmentTypes();
-            guidedBooking.userEnterGbParcelShipmentOrigin(xlShipmentOrigin);
-            guidedBooking.userEnterGbParcelShipmentDestination(xlShipmentDestination);
-            guidedBooking.userClickOnGbParcelShipmentDatePicker();
-            guidedBooking.userSelectGbParcelDepartureTime();
-            guidedBooking.userSelectDeliveryType();
-            guidedBooking.userEnterGbParcelShipmentQuantity(xlShipmentQuantity, 1);
-            guidedBooking.userEnterGbParcelShipmentLength(xlShipmentLength, 1);
-            guidedBooking.userEnterGbParcelShipmentWidth(xlShipmentWidth, 1);
-            guidedBooking.userEnterGbParcelShipmentHeight(xlShipmentHeight, 1);
-            guidedBooking.userChooseGbParcelQuantityUnit(xlShipmentQuantityUnit, 1);
-            guidedBooking.userEnterGbParcelShipmentWeight(xlShipmentWeight);
-            guidedBooking.userChooseGbParcelShipmentUnit(xlShipmentWeightUnits);
-            guidedBooking.userChooseGbParcelShipmentContainsDangerousGood(xlShipmentDoPiecesContainDangerousGoods);
-            guidedBooking.userChooseGbParcelShipmentPiecesBeRotated(xlShipmentDoPiecesBeRotated);
-            guidedBooking.userChooseGbParcelShipmentBePreScreened(xlShipmentBePreScreened);
-            guidedBooking.userClicksOnGbFindFlights();
-            guidedBooking.userSelectOneFlightDash();
-            guidedBooking.userWaitsToFillCargoShipmentRequest();
-            guidedBooking.userEnterRecipientDetails( new String[]{xlShipmentDescription,
-                    xlRecipientAccountNumber});
-            Reporter.log("user logged In Successfully");
-        } else {
-            throw new SkipException("Test Ignored");
-        }
     }
 }
