@@ -1,6 +1,7 @@
 package com.delta.test.UI;
 
 import com.delta.pageobjects.guidedbooking.GuidedBooking;
+import com.delta.pageobjects.guidedbooking.Parcel;
 import com.delta.util.BaseTest;
 import com.delta.util.Login;
 import org.testng.Reporter;
@@ -51,11 +52,15 @@ public class GuidedBookingParcel extends BaseTest {
             guidedBooking.userClickOnGbParcelShipmentDatePicker();
             guidedBooking.userSelectGbParcelDepartureTime();
             guidedBooking.userSelectDeliveryType();
-            guidedBooking.userEnterGbParcelShipmentQuantity(xlShipmentQuantity);
-            guidedBooking.userEnterGbParcelShipmentLength(xlShipmentLength);
-            guidedBooking.userEnterGbParcelShipmentWidth(xlShipmentWidth);
-            guidedBooking.userEnterGbParcelShipmentHeight(xlShipmentHeight);
-            guidedBooking.userChooseGbParcelQuantityUnit(xlShipmentQuantityUnit);
+
+            Parcel parcel = new Parcel(xlShipmentQuantity, xlShipmentLength, xlShipmentWidth, xlShipmentHeight, xlShipmentQuantityUnit);
+            // Enter details of default Parcel
+            addParcel(guidedBooking, parcel, 1, false);
+            // Now add few more parcels
+            for (int i = 0; i < 3; i++) {
+                addParcel(guidedBooking, parcel, i + 2, true);
+            }
+
             guidedBooking.userEnterGbParcelShipmentWeight(xlShipmentWeight);
             guidedBooking.userChooseGbParcelShipmentUnit(xlShipmentWeightUnits);
             guidedBooking.userChooseGbParcelShipmentContainsDangerousGood(xlShipmentDoPiecesContainDangerousGoods);
@@ -70,9 +75,19 @@ public class GuidedBookingParcel extends BaseTest {
         } else {
             throw new SkipException("Test Ignored");
         }
-
-
     }
+
+    private void addParcel(GuidedBooking guidedBooking, Parcel parcel, int index, boolean addParcel) {
+        if (addParcel) {
+            guidedBooking.userChooseAddParcel();
+        }
+        guidedBooking.userEnterGbParcelShipmentQuantity(parcel.getShipmentQuantity(), index);
+        guidedBooking.userEnterGbParcelShipmentLength(parcel.getShipmentLength(), index);
+            guidedBooking.userEnterGbParcelShipmentWidth(parcel.getShipmentWidth(), index);
+        guidedBooking.userEnterGbParcelShipmentHeight(parcel.getShipmentHeight(), index);
+        guidedBooking.userChooseGbParcelQuantityUnit(parcel.getShipmentUnit(), index);
+    }
+
     @Test(priority=2)
     public void createAndConfirmGuidedBookingForParcels_DSH_NA_Domestic() throws InterruptedException {
 
@@ -110,11 +125,11 @@ public class GuidedBookingParcel extends BaseTest {
             guidedBooking.userClickOnGbParcelShipmentDatePicker();
             guidedBooking.userSelectGbParcelDepartureTime();
             guidedBooking.userSelectDeliveryType();
-            guidedBooking.userEnterGbParcelShipmentQuantity(xlShipmentQuantity);
-            guidedBooking.userEnterGbParcelShipmentLength(xlShipmentLength);
-            guidedBooking.userEnterGbParcelShipmentWidth(xlShipmentWidth);
-            guidedBooking.userEnterGbParcelShipmentHeight(xlShipmentHeight);
-            guidedBooking.userChooseGbParcelQuantityUnit(xlShipmentQuantityUnit);
+            guidedBooking.userEnterGbParcelShipmentQuantity(xlShipmentQuantity, 1);
+            guidedBooking.userEnterGbParcelShipmentLength(xlShipmentLength, 1);
+            guidedBooking.userEnterGbParcelShipmentWidth(xlShipmentWidth, 1);
+            guidedBooking.userEnterGbParcelShipmentHeight(xlShipmentHeight, 1);
+            guidedBooking.userChooseGbParcelQuantityUnit(xlShipmentQuantityUnit, 1);
             guidedBooking.userEnterGbParcelShipmentWeight(xlShipmentWeight);
             guidedBooking.userChooseGbParcelShipmentUnit(xlShipmentWeightUnits);
             guidedBooking.userChooseGbParcelShipmentContainsDangerousGood(xlShipmentDoPiecesContainDangerousGoods);
@@ -129,7 +144,5 @@ public class GuidedBookingParcel extends BaseTest {
         } else {
             throw new SkipException("Test Ignored");
         }
-
-
     }
 }

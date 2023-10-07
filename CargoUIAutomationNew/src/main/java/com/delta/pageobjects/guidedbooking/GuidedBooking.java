@@ -64,7 +64,7 @@ public class GuidedBooking {
         Select departureTime = new Select(driver.findElement(By.cssSelector(xpathIDMap.get("gbParcelsDepartureTimeSelector"))));
         int index = new Random().nextInt(departureTimes.length);
         departureTime.selectByValue(departureTimes[index]);
-        commonMethod.waitForAction(1000);
+        commonMethod.waitForAction(200);
     }
 
     public void userSelectDeliveryType() {
@@ -75,47 +75,56 @@ public class GuidedBooking {
         // int index = new Random().nextInt(shipmentTypes.length);
         String shipmentSelector = String.format(xpathIDMap.get("gbParcelsShipmentServiceDeliveryType"), shipmentTypes[index]);
         driver.findElement(By.cssSelector(shipmentSelector)).click();
-        commonMethod.waitForAction(1000);
+        commonMethod.waitForAction(200);
     }
 
-    public void userEnterGbParcelShipmentQuantity(String xlShipmentQuantity) {
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("gbParcelsQuantity"), xlShipmentQuantity, Keys.TAB);
-        commonMethod.waitForAction(1000);
+    public void userEnterGbParcelShipmentQuantity(String xlShipmentQuantity, int index) {
+        String quantitySelector = String.format(xpathIDMap.get("gbParcelsQuantity"), index);
+        commonMethod.sendkeysUsingCssSelector(quantitySelector, xlShipmentQuantity, Keys.TAB);
+        commonMethod.waitForAction(200);
     }
 
-    public void userEnterGbParcelShipmentLength(String xlShipmentLength) {
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("gbParcelsLength"), xlShipmentLength, Keys.TAB);
-        commonMethod.waitForAction(1000);
+    public void userEnterGbParcelShipmentLength(String xlShipmentLength, int index) {
+        String lengthSelector = String.format(xpathIDMap.get("gbParcelsLength"), index);
+        commonMethod.sendkeysUsingCssSelector(lengthSelector, xlShipmentLength, Keys.TAB);
+        commonMethod.waitForAction(200);
     }
 
-    public void userEnterGbParcelShipmentWidth(String xlShipmentWidth) {
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("gbParcelsWidth"), xlShipmentWidth, Keys.TAB);
-        commonMethod.waitForAction(1000);
+    public void userEnterGbParcelShipmentWidth(String xlShipmentWidth, int index) {
+        String widthSelector = String.format(xpathIDMap.get("gbParcelsWidth"), index);
+        commonMethod.sendkeysUsingCssSelector(widthSelector, xlShipmentWidth, Keys.TAB);
+        commonMethod.waitForAction(200);
     }
 
-    public void userEnterGbParcelShipmentHeight(String xlShipmentHeight) {
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("gbParcelsHeight"), xlShipmentHeight, Keys.TAB);
-        commonMethod.waitForAction(1000);
+    public void userEnterGbParcelShipmentHeight(String xlShipmentHeight, int index) {
+        String heightSelector = String.format(xpathIDMap.get("gbParcelsHeight"), index);
+        commonMethod.sendkeysUsingCssSelector(heightSelector, xlShipmentHeight, Keys.TAB);
+        commonMethod.waitForAction(200);
     }
 
-    public void userChooseGbParcelQuantityUnit(String xlShipmentUnit) {
-        commonMethod.selectDropdownUsingCssSelector(xpathIDMap.get("gbParcelsQuantityUnits"), xlShipmentUnit);
-        commonMethod.waitForAction(1000);
+    public void userChooseGbParcelQuantityUnit(String xlShipmentUnit, int index) {
+        String unitSelector = String.format(xpathIDMap.get("gbParcelsQuantityUnits"), index);
+        commonMethod.selectDropdownUsingCssSelector(unitSelector, xlShipmentUnit);
+        commonMethod.waitForAction(200);
         // unit change popup confirmation
-        commonMethod.acceptPopUpButton();
+        commonMethod.acceptPopUpButton(xpathIDMap.get("gbParcelUnitSelect"), xpathIDMap.get("gbParcelUnitSelectOk"));
     }
 
+    public void userChooseAddParcel() {
+        driver.findElement(By.linkText(xpathIDMap.get("gbParcelAddParcel"))).click();
+        commonMethod.waitForAction(200);
+    }
 
     public void userEnterGbParcelShipmentWeight(String xlShipmentWeight) {
         commonMethod.sendkeysUsingXpath(xpathIDMap.get("gbParcelsTotalWeight"), xlShipmentWeight, Keys.TAB);
-        commonMethod.waitForAction(1000);
+        commonMethod.waitForAction(200);
     }
 
     public void userChooseGbParcelShipmentUnit(String xlShipmentWeightUnits) {
         commonMethod.selectDropdownUsingCssSelector(xpathIDMap.get("gbParcelsWeightUnits"), xlShipmentWeightUnits);
-        commonMethod.waitForAction(1000);
+        commonMethod.waitForAction(200);
         // unit change popup confirmation
-        commonMethod.acceptPopUpButton();
+        commonMethod.acceptPopUpButton(xpathIDMap.get("gbParcelUnitSelect"), xpathIDMap.get("gbParcelUnitSelectOk"));
     }
 
     public void userChooseGbParcelShipmentPiecesBeRotated(String xlShipmentDoPiecesBeRotated) {
@@ -137,7 +146,7 @@ public class GuidedBooking {
             commonMethod.waitForPageLoad(driver);
             commonMethod.ClickOnRadiobutton(xpathIDMap.get("gbParcelContainsDangerousGoodsNo"));
         }
-        commonMethod.waitForAction(1000);
+        commonMethod.waitForAction(200);
     }
 
     public void userChooseGbParcelShipmentBePreScreened(String xlShipmentBePreScreened) {
@@ -148,7 +157,7 @@ public class GuidedBooking {
             commonMethod.waitForPageLoad(driver);
             commonMethod.ClickOnRadiobutton(xpathIDMap.get("gbParcelPrescreenedNo"));
         }
-        commonMethod.waitForAction(1000);
+        commonMethod.waitForAction(200);
     }
 
     public void userClicksOnGbFindFlights() {

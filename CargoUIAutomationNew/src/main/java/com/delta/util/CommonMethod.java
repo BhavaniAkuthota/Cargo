@@ -2,10 +2,14 @@ package com.delta.util;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 public class CommonMethod {
 
@@ -101,12 +105,9 @@ public class CommonMethod {
     public void waitForPageLoad(WebDriver driver) {
         try {
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
 
     public void selectDropdownUsingCssSelector(String element, String dropDownValue) {
@@ -164,11 +165,22 @@ public class CommonMethod {
     }
 
 
-    public void acceptPopUpButton() {
-        WebElement element = driver.findElement(By.xpath("//div[@class='modal-dialog modal-md shipmentImg']"));
-        if (element.isDisplayed()) {
-            isElementVisible(By.xpath("//button[text()='OK']"));
-            driver.findElement(By.xpath("//button[text()='OK']")).click();
+    public void acceptPopUpButton(String xpathDialog, String xpathOk) {
+        Wait<WebDriver> unitChangeWait = new FluentWait<WebDriver>(driver)
+                .withTimeout(Duration.ofMillis(100))
+                .ignoring(NoSuchElementException.class);
+
+        List<WebElement> elements = unitChangeWait.until(new Function<WebDriver, List<WebElement>>() {
+            @Override
+            public List<WebElement> apply(WebDriver driver) {
+                return driver.findElements(By.xpath(xpathDialog));
+            }
+        });
+
+        if (!elements.isEmpty()) {
+            isElementVisible(By.xpath(xpathOk));
+            driver.findElement(By.xpath(xpathOk)).click();
+            waitForAction(200);
         }
     }
 
