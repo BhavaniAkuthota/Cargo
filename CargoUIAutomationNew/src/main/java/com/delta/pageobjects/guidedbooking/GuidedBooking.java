@@ -175,25 +175,21 @@ public class GuidedBooking {
     }
 
     private void waitForLoaderProgressBar() {
-        commonMethod.waitUntilElementVisible(xpathIDMap.get("gbLoadingWait"));
+        commonMethod.waitForLoaderElement(xpathIDMap.get("gbLoadingWait"));
     }
 
     public void userEnterRecipientDetails(String[] recipientInfo) {
-
-        //waitForLoaderProgressBar();
+        // Wait for the recipient page to be completely rendered
+//        waitForLoaderProgressBar();
         // Enter recipient account number and the rest of the form will be autofill by system
-        commonMethod.waitForAction(15000);
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("ShipmentDescription"), recipientInfo[0], Keys.TAB);
         commonMethod.waitForAction(2000);
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("RecipientAccountNumber"), recipientInfo[1]);
-        commonMethod.waitForAction(5000);
+        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("ShipmentDescription"), recipientInfo[0], Keys.TAB);
+        commonMethod.waitForAction(200);
+        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("RecipientAccountNumber"), recipientInfo[1], Keys.TAB);
+
         // Wait for loader to go away and display charge confirmation and then click 'Accept'
         waitForLoaderProgressBar();
-        commonMethod.waitUntilElementVisible(xpathIDMap.get("gbDisplayChargeConfirmation"));
-//        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(xpathIDMap.get("gbDisplayChargeConfirmation")))));
-        commonMethod.waitForAction(5000);
-        driver.findElement(By.cssSelector(xpathIDMap.get("gbChargeConfirmationAccept"))).click();
-        waitForLoaderProgressBar();
+
         // Select Payment method
         driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentPaymentMethod"))).click();
         commonMethod.waitForAction(200);

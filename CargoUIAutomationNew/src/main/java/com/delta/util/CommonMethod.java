@@ -41,6 +41,12 @@ public class CommonMethod {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
+    public void waitForLoaderElement(String xlWebElement) {
+        By by = By.cssSelector(xlWebElement);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+
 
     public void waitUntilXpathElementIsClickable(String xlWebElement) {
         By by = By.xpath(xlWebElement);
@@ -159,8 +165,11 @@ public class CommonMethod {
 
 
     public void acceptPopUpButton() {
-        isElementVisible(By.xpath("//button[text()='OK']"));
-        driver.findElement(By.xpath("//button[text()='OK']")).click();
+        WebElement element = driver.findElement(By.xpath("//div[@class='modal-dialog modal-md shipmentImg']"));
+        if (element.isDisplayed()) {
+            isElementVisible(By.xpath("//button[text()='OK']"));
+            driver.findElement(By.xpath("//button[text()='OK']")).click();
+        }
     }
 
 
