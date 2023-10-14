@@ -20,7 +20,7 @@ public class GuidedBookingParcel extends BaseTest {
         driver.close();
     }
 
-    @Test(priority=1 )
+    @Test(priority=1)
     public void createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic() throws InterruptedException {
         fillParcelForm("createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic", "STANDARD", true);
     }
@@ -28,6 +28,11 @@ public class GuidedBookingParcel extends BaseTest {
     @Test(priority=2)
     public void createAndConfirmGuidedBookingForParcels_DSH_NA_Domestic() throws InterruptedException {
         fillParcelForm("createAndConfirmGuidedBookingForParcels_DSH_NA_Domestic", "DASH", false);
+    }
+
+    @Test(priority=3)
+    public void createAndConfirmGuidedBookingForParcels_DMD_NA_Domestic() throws InterruptedException {
+        fillParcelForm("createAndConfirmGuidedBookingForParcels_DMD_NA_Domestic", "DASH_CRITICAL", false);
     }
 
     private void fillParcelForm(String testCaseName, String flightOption, boolean addAdditionalParcels) {
@@ -59,11 +64,11 @@ public class GuidedBookingParcel extends BaseTest {
             //CODE
             login.userLoginAsDomesticAccount(loginUsername, loginPassword);
             guidedBooking.userClicksOnTheGuidedBookingOption();
-            guidedBooking.userSelectsGbShipmentTypes();
-            guidedBooking.userEnterGbParcelShipmentOrigin(xlShipmentOrigin);
-            guidedBooking.userEnterGbParcelShipmentDestination(xlShipmentDestination);
-            guidedBooking.userClickOnGbParcelShipmentDatePicker();
-            guidedBooking.userSelectGbParcelDepartureTime();
+            guidedBooking.userSelectsGBShipmentType("gbParcels");
+            guidedBooking.userEnterGBShipmentOrigin("gbParcelsOrigin", xlShipmentOrigin);
+            guidedBooking.userEnterGBShipmentDestination("gbParcelsDestination", xlShipmentDestination);
+            guidedBooking.userClickOnGBParcelShipmentDatePicker();
+            guidedBooking.userSelectGBParcelDepartureTime();
             guidedBooking.userSelectDeliveryType();
 
             // Enter quantity, length, weight, height and Units
@@ -73,17 +78,20 @@ public class GuidedBookingParcel extends BaseTest {
             if (addAdditionalParcels) {
                 // Now add few more parcels
                 for (int i = 0; i < 3; i++) {
-                    guidedBooking.userChooseAddParcel();
+                    guidedBooking.userChooseAddItem("gbParcelAddParcel");
                     addParcel(guidedBooking, parcel, i + 2);
                 }
             }
 
-            guidedBooking.userEnterGbParcelShipmentWeight(xlShipmentWeight);
-            guidedBooking.userChooseGbParcelShipmentUnit(xlShipmentWeightUnits);
-            guidedBooking.userChooseGbParcelShipmentContainsDangerousGood(xlShipmentDoPiecesContainDangerousGoods);
-            guidedBooking.userChooseGbParcelShipmentPiecesBeRotated(xlShipmentDoPiecesBeRotated);
-            guidedBooking.userChooseGbParcelShipmentBePreScreened(xlShipmentBePreScreened);
-            guidedBooking.userClicksOnGbFindFlights();
+            guidedBooking.userEnterGBShipmentTotalWeight("gbParcelsTotalWeight", xlShipmentWeight);
+            guidedBooking.userChooseGBParcelShipmentUnit(xlShipmentWeightUnits);
+            // Contains dangerous goods Yes or No
+            guidedBooking.userSelectYesNoRadioButton(xlShipmentDoPiecesContainDangerousGoods, "gbParcelContainsDangerousGoodsYes", "gbParcelContainsDangerousGoodsNo");
+            // Shipment to be rotated Yes or No
+            guidedBooking.userSelectYesNoRadioButton(xlShipmentDoPiecesBeRotated, "gbParcelCanbeRotatedYes", "gbParcelCanbeRotatedNo");
+            // Shipment to be pre-screened Yes or No
+            guidedBooking.userSelectYesNoRadioButton(xlShipmentBePreScreened, "gbParcelPrescreenedYes", "gbParcelPrescreenedNo");
+            guidedBooking.userClicksOnGBFindFlights();
 
             // Select flight option
             switch (flightOption) {
@@ -92,6 +100,9 @@ public class GuidedBookingParcel extends BaseTest {
                     break;
                 case "DASH":
                     guidedBooking.userSelectOneFlightDash();
+                    break;
+                case "DASH_CRITICAL":
+                    guidedBooking.userSelectOneFlightDashCritical();
                     break;
                 default:
                     fail("Invalid flight option is provided");
@@ -107,10 +118,10 @@ public class GuidedBookingParcel extends BaseTest {
     }
 
     private void addParcel(GuidedBooking guidedBooking, Parcel parcel, int index) {
-        guidedBooking.userEnterGbParcelShipmentQuantity(parcel.getShipmentQuantity(), index);
-        guidedBooking.userEnterGbParcelShipmentLength(parcel.getShipmentLength(), index);
-        guidedBooking.userEnterGbParcelShipmentWidth(parcel.getShipmentWidth(), index);
-        guidedBooking.userEnterGbParcelShipmentHeight(parcel.getShipmentHeight(), index);
-        guidedBooking.userChooseGbParcelQuantityUnit(parcel.getShipmentUnit(), index);
+        guidedBooking.userEnterGBShipmentQuantity("gbParcelsQuantity", parcel.getShipmentQuantity(), index);
+        guidedBooking.userEnterGBShipmentLength("gbParcelsLength", parcel.getShipmentLength(), index);
+        guidedBooking.userEnterGBShipmentWidth("gbParcelsWidth", parcel.getShipmentWidth(), index);
+        guidedBooking.userEnterGBShipmentHeight("gbParcelsHeight", parcel.getShipmentHeight(), index);
+        guidedBooking.userChooseGBQuantityUnit("gbParcelsQuantityUnits", parcel.getShipmentUnit(), index);
     }
 }

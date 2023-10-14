@@ -69,4 +69,40 @@
             </class>
         </classes>
     </test>
+    <test name="createAndConfirmGuidedBookingForParcels_DMD_NA_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Bhavani"></parameter>
+        <classes>
+            <class name="com.delta.test.UI.GuidedBookingParcel">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingForParcels_DMD_NA_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+<!--    <test name="createAndConfirmGuidedBookingPharma_PHARMA_Pharma1ActiveContainer_Domestic">-->
+<!--        <parameter name="url" value="si.deltacargo.com"></parameter>-->
+<!--        <parameter name="browser" value="chrome"></parameter>-->
+<!--        <parameter name="author" value="Bhavani"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="com.delta.test.UI.PharmaBookingParcelTest">-->
+<!--                <methods>-->
+<!--                    <include name="createAndConfirmGuidedBookingPharma_PHARMA_Pharma1ActiveContainer_Domestic"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+    <test name="createAndConfirmGuidedBookingPharma_PHARMA_Pharma2Temperaturecontrolledbetween2Cto8C_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Bhavani"></parameter>
+        <classes>
+            <class name="com.delta.test.UI.PharmaBookingParcelTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingPharma_PHARMA_Pharma2Temperaturecontrolledbetween2Cto8C_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>

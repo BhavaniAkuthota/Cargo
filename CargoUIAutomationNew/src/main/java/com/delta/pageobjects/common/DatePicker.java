@@ -6,7 +6,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -21,28 +20,28 @@ public class DatePicker {
         this.xpathIDMap = xpathIDMap;
     }
 
-    public void openCalendar() {
-        if (!isCalendarOpen()) {
+    public void openCalendar(String calendarSelector, String inputSelector, String dateOpenerSelector) {
+        if (!isCalendarOpen(calendarSelector)) {
             CommonMethod commonMethod = new CommonMethod(driver);
             // First enable the date input field
-            WebElement dateElement = driver.findElement(By.cssSelector(this.xpathIDMap.get("gbParcelsShipmentDateInput")));
+            WebElement dateElement = driver.findElement(By.cssSelector(this.xpathIDMap.get(inputSelector)));
             dateElement.sendKeys(Keys.TAB);
             commonMethod.waitForAction(2000);
             // Now perform a click to open the Calendar
-            driver.findElement(By.cssSelector(this.xpathIDMap.get("gbParcelsShipmentDateOpener"))).click();
+            driver.findElement(By.cssSelector(this.xpathIDMap.get(dateOpenerSelector))).click();
             commonMethod.waitForAction(2000);
         }
     }
 
-    private boolean isCalendarOpen() {
-        return driver.findElement(By.id(this.xpathIDMap.get("gbParcelsShipmentDateCalendar"))).isDisplayed();
+    private boolean isCalendarOpen(String calendarSelector) {
+        return driver.findElement(By.id(this.xpathIDMap.get(calendarSelector))).isDisplayed();
     }
 
-    public void selectDate() {
+    public void selectDate(String nextMonthSelector, String dateSelector) {
         Date bookingDate = getRandomDayInNextTwoWeeks();
 
         // Determine if clicking on next month is needed and navigate to next month
-        By nextMonth = By.cssSelector(this.xpathIDMap.get("gbParcelsShipmentDateCalendarNextMonth"));
+        By nextMonth = By.cssSelector(this.xpathIDMap.get(nextMonthSelector));
         if (isNavigateToNextMonth(bookingDate)) {
             driver.findElement(nextMonth).click();
             new CommonMethod(driver).waitForAction(2000);
@@ -53,7 +52,7 @@ public class DatePicker {
         calendar.setTime(bookingDate);
         String month = Integer.toString(calendar.get(Calendar.MONTH));
         String date = Integer.toString(calendar.get(Calendar.DATE));
-        String dateSelectorPath = String.format(this.xpathIDMap.get("gbParcelsShipmentDateSelector"), month, date);
+        String dateSelectorPath = String.format(this.xpathIDMap.get(dateSelector), month, date);
         driver.findElement(By.xpath(dateSelectorPath)).click();
     }
 
@@ -68,7 +67,6 @@ public class DatePicker {
     }
 
     private Date getRandomDayInNextTwoWeeks() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         Calendar c = Calendar.getInstance();
         Date today = new Date();
         c.setTime(today);

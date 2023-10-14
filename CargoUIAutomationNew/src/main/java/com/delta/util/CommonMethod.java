@@ -12,23 +12,19 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class CommonMethod {
-
-    WebDriver driver;
-    WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
     public CommonMethod(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-
-
     public void waitUntilElementIsClickable(String xlWebElement) {
         By by = selectLocator(xlWebElement);
         isElementVisible(by);
         jseClick(by);
     }
-
 
     public void waitUntilCssSelectorElementIsClickable(String xlWebElement) {
         By by = By.cssSelector(xlWebElement);
@@ -51,7 +47,6 @@ public class CommonMethod {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
-
     public void waitUntilXpathElementIsClickable(String xlWebElement) {
         By by = By.xpath(xlWebElement);
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
@@ -65,7 +60,6 @@ public class CommonMethod {
         driver.findElement(By.xpath(xlWebElement)).sendKeys(specialKey);
         waitForAction(200);
     }
-
 
     public void sendkeysUsingXpath(String xlWebElement, String sendKeyValue) {
 
@@ -85,22 +79,17 @@ public class CommonMethod {
     }
 
     public void sendkeysUsingCssSelector(String xlWebElement, String sendKeyValue) {
-
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(xlWebElement)));
         driver.findElement(By.cssSelector(xlWebElement)).sendKeys(sendKeyValue);
         driver.findElement(By.cssSelector(xlWebElement)).sendKeys(Keys.ENTER);
         waitForAction(200);
     }
 
-
     public void ClickOnRadiobutton(String xlWebElement) {
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(xlWebElement)));
         driver.findElement(By.cssSelector(xlWebElement)).click();
         waitForAction(200);
     }
-
 
     public void waitForPageLoad(WebDriver driver) {
         try {
@@ -163,8 +152,7 @@ public class CommonMethod {
             by = By.cssSelector(xlWebElement);
         return by;
     }
-
-
+    
     public void acceptPopUpButton(String xpathDialog, String xpathOk) {
         Wait<WebDriver> unitChangeWait = new FluentWait<WebDriver>(driver)
                 .withTimeout(Duration.ofMillis(100))
@@ -184,11 +172,13 @@ public class CommonMethod {
         }
     }
 
-
     public void closeBanner() {
         isElementVisible(By.cssSelector(".bannerClose"));
         driver.findElement(By.cssSelector(".bannerClose")).click();
+    }
 
-
+    public void scrollDownLittle() {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("window.scrollBy(0, 500)", "");
     }
 }

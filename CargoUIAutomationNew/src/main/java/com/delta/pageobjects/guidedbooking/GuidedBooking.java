@@ -16,55 +16,25 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.Random;
 
-public class GuidedBooking {
-    Map<String, String> xpathIDMap;
-
-    WebDriver driver;
-    CommonMethod commonMethod;
-
+public class GuidedBooking extends GBActions {
 
     public GuidedBooking(WebDriver driver) {
-        this.driver = driver;
-
-        Login login = new Login(this.driver);
-        commonMethod = new CommonMethod(this.driver);
-        this.xpathIDMap = login.getXpathIDMap();
+        super(driver);
     }
 
-
-    public void userClicksOnTheGuidedBookingOption() {
-        commonMethod.closeBanner();
-        commonMethod.waitUntilElementIsClickable(xpathIDMap.get("abbookAShipment"));
-        commonMethod.waitUntilXpathElementIsClickable(xpathIDMap.get("gbGuided"));
+    public void userClickOnGBParcelShipmentDatePicker() {
+        DatePicker datePicker = new DatePicker(getDriver(), getXpathIDMap());
+        datePicker.openCalendar("gbParcelsShipmentDateCalendar", "gbParcelsShipmentDateInput", "gbParcelsShipmentDateOpener");
+        datePicker.selectDate("gbParcelsShipmentDateCalendarNextMonth", "gbParcelsShipmentDateSelector");
+        getCommonMethod().waitForAction(2000);
     }
 
-    public void userSelectsGbShipmentTypes() {
-        commonMethod.waitUntilXpathElementIsClickable(xpathIDMap.get("gbParcels"));
-    }
-
-    public void userEnterGbParcelShipmentOrigin(String xlShipmentOrigin) {
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("gbParcelsOrigin"), xlShipmentOrigin);
-    }
-
-    public void userEnterGbParcelShipmentDestination(String xlShipmentDestination) {
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("gbParcelsDestination"), xlShipmentDestination);
-        commonMethod.waitUntilCssSelectorElementIsClickable(xpathIDMap.get("gbParcelFlightInformation"));
-        commonMethod.waitForAction(2000);
-    }
-
-    public void userClickOnGbParcelShipmentDatePicker() {
-        DatePicker datePicker = new DatePicker(driver, xpathIDMap);
-        datePicker.openCalendar();
-        datePicker.selectDate();
-        commonMethod.waitForAction(2000);
-    }
-
-    public void userSelectGbParcelDepartureTime() {
+    public void userSelectGBParcelDepartureTime() {
         final String[] departureTimes = {"0000", "0800", "1200", "1600", "2000"};
-        Select departureTime = new Select(driver.findElement(By.cssSelector(xpathIDMap.get("gbParcelsDepartureTimeSelector"))));
+        Select departureTime = new Select(getDriver().findElement(By.cssSelector(getXpathIDMap().get("gbParcelsDepartureTimeSelector"))));
         int index = new Random().nextInt(departureTimes.length);
         departureTime.selectByValue(departureTimes[index]);
-        commonMethod.waitForAction(200);
+        getCommonMethod().waitForAction(200);
     }
 
     public void userSelectDeliveryType() {
@@ -73,176 +43,55 @@ public class GuidedBooking {
         // the commented random index generator.
         int index = 3;
         // int index = new Random().nextInt(shipmentTypes.length);
-        String shipmentSelector = String.format(xpathIDMap.get("gbParcelsShipmentServiceDeliveryType"), shipmentTypes[index]);
-        driver.findElement(By.cssSelector(shipmentSelector)).click();
-        commonMethod.waitForAction(200);
+        String shipmentSelector = String.format(getXpathIDMap().get("gbParcelsShipmentServiceDeliveryType"), shipmentTypes[index]);
+        getDriver().findElement(By.cssSelector(shipmentSelector)).click();
+        getCommonMethod().waitForAction(200);
     }
 
-    public void userEnterGbParcelShipmentQuantity(String xlShipmentQuantity, int index) {
-        String quantitySelector = String.format(xpathIDMap.get("gbParcelsQuantity"), index);
-        commonMethod.sendkeysUsingCssSelector(quantitySelector, xlShipmentQuantity, Keys.TAB);
-        commonMethod.waitForAction(200);
-    }
-
-    public void userEnterGbParcelShipmentLength(String xlShipmentLength, int index) {
-        String lengthSelector = String.format(xpathIDMap.get("gbParcelsLength"), index);
-        commonMethod.sendkeysUsingCssSelector(lengthSelector, xlShipmentLength, Keys.TAB);
-        commonMethod.waitForAction(200);
-    }
-
-    public void userEnterGbParcelShipmentWidth(String xlShipmentWidth, int index) {
-        String widthSelector = String.format(xpathIDMap.get("gbParcelsWidth"), index);
-        commonMethod.sendkeysUsingCssSelector(widthSelector, xlShipmentWidth, Keys.TAB);
-        commonMethod.waitForAction(200);
-    }
-
-    public void userEnterGbParcelShipmentHeight(String xlShipmentHeight, int index) {
-        String heightSelector = String.format(xpathIDMap.get("gbParcelsHeight"), index);
-        commonMethod.sendkeysUsingCssSelector(heightSelector, xlShipmentHeight, Keys.TAB);
-        commonMethod.waitForAction(200);
-    }
-
-    public void userChooseGbParcelQuantityUnit(String xlShipmentUnit, int index) {
-        String unitSelector = String.format(xpathIDMap.get("gbParcelsQuantityUnits"), index);
-        commonMethod.selectDropdownUsingCssSelector(unitSelector, xlShipmentUnit);
-        commonMethod.waitForAction(200);
+    public void userChooseGBParcelShipmentUnit(String xlShipmentWeightUnits) {
+        getCommonMethod().selectDropdownUsingCssSelector(getXpathIDMap().get("gbParcelsWeightUnits"), xlShipmentWeightUnits);
+        getCommonMethod().waitForAction(200);
         // unit change popup confirmation
-        commonMethod.acceptPopUpButton(xpathIDMap.get("gbParcelUnitSelect"), xpathIDMap.get("gbParcelUnitSelectOk"));
+        getCommonMethod().acceptPopUpButton(getXpathIDMap().get("gbParcelUnitSelect"), getXpathIDMap().get("gbParcelUnitSelectOk"));
     }
 
-    public void userChooseAddParcel() {
-        driver.findElement(By.linkText(xpathIDMap.get("gbParcelAddParcel"))).click();
-        commonMethod.waitForAction(200);
-    }
-
-    public void userEnterGbParcelShipmentWeight(String xlShipmentWeight) {
-        commonMethod.sendkeysUsingXpath(xpathIDMap.get("gbParcelsTotalWeight"), xlShipmentWeight, Keys.TAB);
-        commonMethod.waitForAction(200);
-    }
-
-    public void userChooseGbParcelShipmentUnit(String xlShipmentWeightUnits) {
-        commonMethod.selectDropdownUsingCssSelector(xpathIDMap.get("gbParcelsWeightUnits"), xlShipmentWeightUnits);
-        commonMethod.waitForAction(200);
-        // unit change popup confirmation
-        commonMethod.acceptPopUpButton(xpathIDMap.get("gbParcelUnitSelect"), xpathIDMap.get("gbParcelUnitSelectOk"));
-    }
-
-    public void userChooseGbParcelShipmentPiecesBeRotated(String xlShipmentDoPiecesBeRotated) {
-        if (xlShipmentDoPiecesBeRotated.equalsIgnoreCase("Yes")) {
-            commonMethod.waitForPageLoad(driver);
-            commonMethod.ClickOnRadiobutton(xpathIDMap.get("gbParcelCanbeRotatedYes"));
-        } else if (xlShipmentDoPiecesBeRotated.equalsIgnoreCase("No")) {
-            commonMethod.waitForPageLoad(driver);
-            commonMethod.ClickOnRadiobutton(xpathIDMap.get("gbParcelCanbeRotatedNo"));
-        }
-        commonMethod.waitForAction(1000);
-    }
-
-    public void userChooseGbParcelShipmentContainsDangerousGood(String xlShipmentDoPiecesContainDangerousGoods) {
-        if (xlShipmentDoPiecesContainDangerousGoods.equalsIgnoreCase("Yes")) {
-            commonMethod.waitForPageLoad(driver);
-            commonMethod.ClickOnRadiobutton(xpathIDMap.get("gbParcelContainsDangerousGoodsYes"));
-        } else if (xlShipmentDoPiecesContainDangerousGoods.equalsIgnoreCase("No")) {
-            commonMethod.waitForPageLoad(driver);
-            commonMethod.ClickOnRadiobutton(xpathIDMap.get("gbParcelContainsDangerousGoodsNo"));
-        }
-        commonMethod.waitForAction(200);
-    }
-
-    public void userChooseGbParcelShipmentBePreScreened(String xlShipmentBePreScreened) {
-        if (xlShipmentBePreScreened.equalsIgnoreCase("Yes")) {
-            commonMethod.waitForPageLoad(driver);
-            commonMethod.ClickOnRadiobutton(xpathIDMap.get("gbParcelPrescreenedYes"));
-        } else if (xlShipmentBePreScreened.equalsIgnoreCase("No")) {
-            commonMethod.waitForPageLoad(driver);
-            commonMethod.ClickOnRadiobutton(xpathIDMap.get("gbParcelPrescreenedNo"));
-        }
-        commonMethod.waitForAction(200);
-    }
-
-    public void userClicksOnGbFindFlights() {
-        driver.switchTo().activeElement();
-        commonMethod.waitUntilCssSelectorElementIsClickable(xpathIDMap.get("gbParcelViewShippingOptions"));
+    public void userClicksOnGBFindFlights() {
+        getDriver().switchTo().activeElement();
+        getCommonMethod().waitUntilCssSelectorElementIsClickable(getXpathIDMap().get("gbParcelViewShippingOptions"));
     }
 
     public void userSelectOneFlightStandard() {
         // Wait for flight search dialog goes away
-        commonMethod.waitUntilElementIsClickable(xpathIDMap.get("gbShipmentFlightSearch"));
-        commonMethod.waitUntilElementIsClickable(xpathIDMap.get("gbShipmentFlightSearchResults"));
-//        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(xpathIDMap.get("gbShipmentFlightSearch"))));
+        getCommonMethod().waitUntilElementIsClickable(getXpathIDMap().get("gbShipmentFlightSearch"));
+        getCommonMethod().waitUntilElementIsClickable(getXpathIDMap().get("gbShipmentFlightSearchResults"));
         // Wait for the flight search results to be displayed
-//        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpathIDMap.get("gbShipmentFlightSearchResults")))));
-        commonMethod.waitForAction(2000);
-        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFlightStandardSelection"))).click();
+        getCommonMethod().waitForAction(2000);
+        getDriver().findElement(By.cssSelector(getXpathIDMap().get("gbShipmentFlightStandardSelection"))).click();
     }
 
     public void userWaitsToFillCargoShipmentRequest() {
-        WebElement chargesConfirmationPage = driver.findElement(By.xpath(xpathIDMap.get("gbShipmentChargeConfirmation")));
+        WebElement chargesConfirmationPage = getDriver().findElement(By.xpath(getXpathIDMap().get("gbShipmentChargeConfirmation")));
         if (chargesConfirmationPage == null) {
             waitForLoaderProgressBar();
         }
     }
 
-    private void waitForLoaderProgressBar() {
-        commonMethod.waitForLoaderElement(xpathIDMap.get("gbLoadingWait"));
-    }
-
-    public void userEnterRecipientDetails(String[] recipientInfo) {
-        // Wait for the recipient page to be completely rendered
-//        waitForLoaderProgressBar();
-        // Enter recipient account number and the rest of the form will be autofill by system
-        commonMethod.waitForAction(2000);
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("ShipmentDescription"), recipientInfo[0], Keys.TAB);
-        commonMethod.waitForAction(200);
-        commonMethod.sendkeysUsingCssSelector(xpathIDMap.get("RecipientAccountNumber"), recipientInfo[1], Keys.TAB);
-
-        // Wait for loader to go away and display charge confirmation and then click 'Accept'
-        waitForLoaderProgressBar();
-
-        // Select Payment method
-        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentPaymentMethod"))).click();
-        commonMethod.waitForAction(200);
-        // Select one available credit card (first one)
-        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentPaymentWithFirstCreditCard"))).click();
-        commonMethod.waitForAction(200);
-        // Select agreement check box
-        driver.findElement(By.xpath(xpathIDMap.get("gbShipmentOptInFlag"))).click();
-        commonMethod.waitForAction(200);
-
-        // Submit shipment confirmation
-        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFinalConfirmation"))).click();
-
-        waitForLoaderProgressBar();
-
-        commonMethod.waitForAction(200);
-        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFinalConfirmationSubmit"))).click();
-
-        waitForLoaderProgressBar();
-
-        // Confirmed Booking Page is displayed
-        WebElement confirmedBookingPage = driver.findElement(By.xpath(xpathIDMap.get("gbShipmentBookingConfirmation")));
-        Assert.assertNotNull(confirmedBookingPage);
-        WebElement airwayBill = driver.findElement(By.xpath(xpathIDMap.get("gbShipmentAirwayBillNumber")));
-        Assert.assertNotNull(airwayBill);
-        System.out.println("%%%%%%%%%%%%%% Airway Bill: " + airwayBill.getText() + " %%%%%%%%%%%%%%");
-        Assert.assertFalse(airwayBill.getText().isBlank());
-    }
     public void userSelectOneFlightDash() {
         // Wait for flight search dialog goes away
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(xpathIDMap.get("gbShipmentFlightSearch"))));
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(getXpathIDMap().get("gbShipmentFlightSearch"))));
         // Wait for the flight search results to be displayed
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpathIDMap.get("gbShipmentFlightSearchResults")))));
-        commonMethod.waitForAction(2000);
-        driver.findElement(By.cssSelector(xpathIDMap.get("gbShipmentFlightDashSelection"))).click();
+        wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(getXpathIDMap().get("gbShipmentFlightSearchResults")))));
+        getCommonMethod().waitForAction(2000);
+        getDriver().findElement(By.cssSelector(getXpathIDMap().get("gbShipmentFlightDashSelection"))).click();
     }
     public void userSelectOneFlightDashCritical() {
         // Wait for flight search dialog goes away
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(xpathIDMap.get("gbShipmentFlightSearch"))));
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(getXpathIDMap().get("gbShipmentFlightSearch"))));
         // Wait for the flight search results to be displayed
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpathIDMap.get("gbShipmentFlightSearchResults")))));
-        commonMethod.waitForAction(2000);
-        driver.findElement(By.xpath(xpathIDMap.get("gbShipmentFlightDashCriticalSelection"))).click();
+        wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(getXpathIDMap().get("gbShipmentFlightSearchResults")))));
+        getCommonMethod().waitForAction(2000);
+        getDriver().findElement(By.cssSelector(getXpathIDMap().get("gbShipmentFlightDashCriticalSelection"))).click();
     }
 }
