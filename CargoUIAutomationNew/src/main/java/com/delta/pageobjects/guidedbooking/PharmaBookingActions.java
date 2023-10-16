@@ -66,16 +66,11 @@ public class PharmaBookingActions extends GBActions {
         getCommonMethod().waitForAction(200);
     }
 
-    public void userEnterTotalPieces(String xlTotalPieces) {
-        getCommonMethod().sendkeysUsingCssSelector(getXpathIDMap().get("gbPharmaTotalPieces"), xlTotalPieces, Keys.TAB);
-        getCommonMethod().waitForAction(200);
-    }
-
     public void userClicksOnGBFindFlights() {
         getCommonMethod().scrollDownLittle();
         getCommonMethod().waitForAction(200);
 
-        List<WebElement> elements = getDriver().findElements(By.cssSelector("div[class='dc-clear'] + button[type='submit']"));
+        List<WebElement> elements = getDriver().findElements(By.cssSelector(getXpathIDMap().get("gbPharmaFindFlights")));
         Assert.assertEquals(elements.size(), 2);
         WebElement findFlightElement = elements.get(1);
         findFlightElement.click();

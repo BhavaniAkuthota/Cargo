@@ -80,6 +80,13 @@ public class GBActions {
         commonMethod.waitForAction(200);
     }
 
+    public void userChooseGBShipmentUnit(String totalWeightUnitSelector, String xlShipmentWeightUnits) {
+        commonMethod.selectDropdownUsingCssSelector(totalWeightUnitSelector, xlShipmentWeightUnits);
+        commonMethod.waitForAction(200);
+        // unit change popup confirmation
+        commonMethod.acceptPopUpButton(getXpathIDMap().get("gbParcelUnitSelect"), getXpathIDMap().get("gbParcelUnitSelectOk"));
+    }
+
     public void userChooseAddItem(String addItemSelector) {
         driver.findElement(By.linkText(xpathIDMap.get(addItemSelector))).click();
         commonMethod.waitForAction(200);

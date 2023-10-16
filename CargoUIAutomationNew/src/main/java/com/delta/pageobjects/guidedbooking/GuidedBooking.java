@@ -48,13 +48,6 @@ public class GuidedBooking extends GBActions {
         getCommonMethod().waitForAction(200);
     }
 
-    public void userChooseGBParcelShipmentUnit(String xlShipmentWeightUnits) {
-        getCommonMethod().selectDropdownUsingCssSelector(getXpathIDMap().get("gbParcelsWeightUnits"), xlShipmentWeightUnits);
-        getCommonMethod().waitForAction(200);
-        // unit change popup confirmation
-        getCommonMethod().acceptPopUpButton(getXpathIDMap().get("gbParcelUnitSelect"), getXpathIDMap().get("gbParcelUnitSelectOk"));
-    }
-
     public void userClicksOnGBFindFlights() {
         getDriver().switchTo().activeElement();
         getCommonMethod().waitUntilCssSelectorElementIsClickable(getXpathIDMap().get("gbParcelViewShippingOptions"));

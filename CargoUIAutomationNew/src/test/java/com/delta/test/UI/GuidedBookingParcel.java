@@ -84,7 +84,7 @@ public class GuidedBookingParcel extends BaseTest {
             }
 
             guidedBooking.userEnterGBShipmentTotalWeight("gbParcelsTotalWeight", xlShipmentWeight);
-            guidedBooking.userChooseGBParcelShipmentUnit(xlShipmentWeightUnits);
+            guidedBooking.userChooseGBShipmentUnit("gbParcelsWeightUnits", xlShipmentWeightUnits);
             // Contains dangerous goods Yes or No
             guidedBooking.userSelectYesNoRadioButton(xlShipmentDoPiecesContainDangerousGoods, "gbParcelContainsDangerousGoodsYes", "gbParcelContainsDangerousGoodsNo");
             // Shipment to be rotated Yes or No

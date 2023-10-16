@@ -86,7 +86,7 @@
 <!--        <parameter name="browser" value="chrome"></parameter>-->
 <!--        <parameter name="author" value="Bhavani"></parameter>-->
 <!--        <classes>-->
-<!--            <class name="com.delta.test.UI.PharmaBookingTest">-->
+<!--            <class name="com.delta.test.UI.GuidedBookingPharma">-->
 <!--                <methods>-->
 <!--                    <include name="createAndConfirmGuidedBookingPharma_PHARMA_Pharma1ActiveContainer_Domestic"/>-->
 <!--                </methods>-->
@@ -98,7 +98,7 @@
         <parameter name="browser" value="chrome"></parameter>
         <parameter name="author" value="Bhavani"></parameter>
         <classes>
-            <class name="com.delta.test.UI.PharmaBookingTest">
+            <class name="com.delta.test.UI.GuidedBookingPharma">
                 <methods>
                     <include name="createAndConfirmGuidedBookingPharma_PHARMA_Pharma2Temperaturecontrolledbetween2Cto8C_Domestic"/>
                 </methods>
