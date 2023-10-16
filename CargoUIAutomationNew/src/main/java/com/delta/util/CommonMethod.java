@@ -1,10 +1,7 @@
 package com.delta.util;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 import java.util.List;
@@ -101,10 +98,14 @@ public class CommonMethod {
 
     public void selectDropdownUsingCssSelector(String element, String dropDownValue) {
         List<WebElement> webShipmentContains = driver.findElements(By.cssSelector(element));
-        for (int i = 0; webShipmentContains.size() > i; i++) {
-            String webShipmentValue = webShipmentContains.get(i).getText();
-            if (webShipmentValue.equalsIgnoreCase(dropDownValue)) {
-                webShipmentContains.get(i).click();
+        for (WebElement webShipmentContain : webShipmentContains) {
+            Select selectElement = new Select(webShipmentContain);
+            for (int j = 0; j < selectElement.getOptions().size(); j++) {
+                String webShipmentValue = selectElement.getOptions().get(j).getText();
+                if (webShipmentValue.equalsIgnoreCase(dropDownValue)) {
+                    selectElement.selectByValue(webShipmentValue);
+                    break;
+                }
             }
         }
     }
