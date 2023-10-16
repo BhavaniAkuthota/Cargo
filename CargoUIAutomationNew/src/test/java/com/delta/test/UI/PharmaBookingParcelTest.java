@@ -68,6 +68,7 @@ public class PharmaBookingParcelTest extends BaseTest {
             String xlShipmentWidth = (String) eachRowMap.get("ShipmentWidth");
             String xlShipmentHeight = (String) eachRowMap.get("ShipmentHeight");
             String xlShipmentQuantityUnit = (String) eachRowMap.get("ShipmentUnit");
+            String xlShipmentWeight = (String) eachRowMap.get("ShipmentWeight");
 
             String xlShipmentDoPiecesContainDangerousGoods = (String) eachRowMap.get("ShipmentDoPiecesContainDangerousGoods");
             String xlShipmentDoPiecesBeRotated = (String) eachRowMap.get("ShipmentDoPiecesBeRotated");
@@ -91,9 +92,9 @@ public class PharmaBookingParcelTest extends BaseTest {
                     // Container required Yes or No
                     pharmaBookingActions.userSelectYesNoRadioButton(xlShipmentRequireDeltaContainer, "gbPharmaContainerRequiredYes", "gbPharmaContainerRequiredNo");
                     pharmaBookingActions.userSelectContainerType();
-                    // FIXME: Modify below with test data
-                    pharmaBookingActions.userEnterTotalNumberOfContainers("10");
-                    pharmaBookingActions.userEnterTotalContainersWeight("156");
+                    pharmaBookingActions.userEnterTotalNumberOfContainers(xlShipmentQuantityUnit);
+                    // Total Pharma Weight
+                    pharmaBookingActions.userEnterTotalContainersWeight(xlShipmentWeight);
                     break;
                 case 3:
                 case 4:
@@ -111,8 +112,7 @@ public class PharmaBookingParcelTest extends BaseTest {
                         }
                     }
 
-                    // FIXME: Modify below with test data
-                    pharmaBookingActions.userEnterGBShipmentTotalWeight("gbPharmaTotalWeight", "150");
+                    pharmaBookingActions.userEnterGBShipmentTotalWeight("gbPharmaTotalWeight", xlShipmentWeight);
 
                     break;
                 default:
