@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static org.testng.AssertJUnit.fail;
 
-public class PharmaBookingParcelTest extends BaseTest {
+public class PharmaBookingTest extends BaseTest {
 
     @AfterTest
     public void afterEach() {
