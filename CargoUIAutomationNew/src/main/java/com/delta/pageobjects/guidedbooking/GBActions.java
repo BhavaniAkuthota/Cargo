@@ -24,7 +24,7 @@ public class GBActions {
     }
 
     public void userSelectsGBShipmentType(String shipmentTypeSelector) {
-        getCommonMethod().waitUntilXpathElementIsClickable(getXpathIDMap().get(shipmentTypeSelector));
+        commonMethod.waitUntilXpathElementIsClickable(getXpathIDMap().get(shipmentTypeSelector));
     }
 
     public void userClicksOnTheGuidedBookingOption() {
@@ -34,13 +34,13 @@ public class GBActions {
     }
 
     public void userEnterGBShipmentOrigin(String originSelector, String xlShipmentOrigin) {
-        getCommonMethod().sendkeysUsingCssSelector(getXpathIDMap().get(originSelector), xlShipmentOrigin, Keys.TAB);
-        getCommonMethod().waitForAction(200);
+        commonMethod.sendkeysUsingCssSelector(getXpathIDMap().get(originSelector), xlShipmentOrigin, Keys.TAB);
+        commonMethod.waitForAction(200);
     }
 
     public void userEnterGBShipmentDestination(String destinationSelector, String xlShipmentDestination) {
-        getCommonMethod().sendkeysUsingCssSelector(getXpathIDMap().get(destinationSelector), xlShipmentDestination, Keys.TAB);
-        getCommonMethod().waitForAction(200);
+        commonMethod.sendkeysUsingCssSelector(getXpathIDMap().get(destinationSelector), xlShipmentDestination, Keys.TAB);
+        commonMethod.waitForAction(200);
     }
 
     public void userEnterGBShipmentQuantity(String shipmentQuantitySelector, String xlShipmentQuantity, int index) {
@@ -76,8 +76,8 @@ public class GBActions {
     }
 
     public void userEnterGBShipmentTotalWeight(String totalWeightSelector, String xlTotalWeight) {
-        getCommonMethod().sendkeysUsingCssSelector(getXpathIDMap().get(totalWeightSelector), xlTotalWeight, Keys.TAB);
-        getCommonMethod().waitForAction(200);
+        commonMethod.sendkeysUsingCssSelector(getXpathIDMap().get(totalWeightSelector), xlTotalWeight, Keys.TAB);
+        commonMethod.waitForAction(200);
     }
 
     public void userChooseAddItem(String addItemSelector) {
@@ -87,13 +87,13 @@ public class GBActions {
 
     public void userSelectYesNoRadioButton(String yesOrNo, String yesSelector, String noSelector) {
         if (yesOrNo.equalsIgnoreCase("Yes")) {
-            getCommonMethod().waitForPageLoad(getDriver());
-            getCommonMethod().ClickOnRadiobutton(getXpathIDMap().get(yesSelector));
+            commonMethod.waitForPageLoad(getDriver());
+            commonMethod.ClickOnRadiobutton(getXpathIDMap().get(yesSelector));
         } else if (yesOrNo.equalsIgnoreCase("No")) {
-            getCommonMethod().waitForPageLoad(getDriver());
-            getCommonMethod().ClickOnRadiobutton(getXpathIDMap().get(noSelector));
+            commonMethod.waitForPageLoad(getDriver());
+            commonMethod.ClickOnRadiobutton(getXpathIDMap().get(noSelector));
         }
-        getCommonMethod().waitForAction(200);
+        commonMethod.waitForAction(200);
     }
 
     public void userWaitsToFillCargoShipmentRequest() {

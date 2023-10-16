@@ -152,7 +152,7 @@ public class CommonMethod {
             by = By.cssSelector(xlWebElement);
         return by;
     }
-    
+
     public void acceptPopUpButton(String xpathDialog, String xpathOk) {
         Wait<WebDriver> unitChangeWait = new FluentWait<WebDriver>(driver)
                 .withTimeout(Duration.ofMillis(100))
