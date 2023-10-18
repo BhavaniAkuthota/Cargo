@@ -1,6 +1,6 @@
-package com.delta.test.UI;
+package com.delta.test.ui;
 
-import com.delta.pageobjects.guidedbooking.GuidedBooking;
+import com.delta.pageobjects.guidedbooking.ParcelActions;
 import com.delta.pageobjects.guidedbooking.Parcel;
 import com.delta.util.BaseTest;
 import com.delta.util.Login;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static org.testng.AssertJUnit.fail;
 
-public class GuidedBookingParcel extends BaseTest {
+public class GuidedBookingParcelTest extends BaseTest {
 
     @AfterTest
     public void afterEach() {
@@ -21,23 +21,23 @@ public class GuidedBookingParcel extends BaseTest {
     }
 
     @Test(priority=1)
-    public void createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic() throws InterruptedException {
-        fillParcelForm("createAndConfirmGuidedBookingForParcels_STANDARD_NA_Domestic", "STANDARD", true);
+    public void createAndConfirmGuidedBookingParcels_STANDARD_NA_Domestic() throws InterruptedException {
+        fillParcelForm("createAndConfirmGuidedBookingParcels_STANDARD_NA_Domestic", "STANDARD", true);
     }
 
     @Test(priority=2)
-    public void createAndConfirmGuidedBookingForParcels_DSH_NA_Domestic() throws InterruptedException {
-        fillParcelForm("createAndConfirmGuidedBookingForParcels_DSH_NA_Domestic", "DASH", false);
+    public void createAndConfirmGuidedBookingParcels_DSH_NA_Domestic() throws InterruptedException {
+        fillParcelForm("createAndConfirmGuidedBookingParcels_DSH_NA_Domestic", "DASH", false);
     }
 
     @Test(priority=3)
-    public void createAndConfirmGuidedBookingForParcels_DMD_NA_Domestic() throws InterruptedException {
-        fillParcelForm("createAndConfirmGuidedBookingForParcels_DMD_NA_Domestic", "DASH_CRITICAL", false);
+    public void createAndConfirmGuidedBookingParcels_DMD_NA_Domestic() throws InterruptedException {
+        fillParcelForm("createAndConfirmGuidedBookingParcels_DMD_NA_Domestic", "DASH_CRITICAL", false);
     }
 
     private void fillParcelForm(String testCaseName, String flightOption, boolean addAdditionalParcels) {
         Login login=new Login(driver);
-        GuidedBooking guidedBooking = new GuidedBooking(driver);
+        ParcelActions parcelActions = new ParcelActions(driver);
 
         String testCaseSheetName = "GBParcel";
         Map<String, Object> eachRowMap = login.excelReadTestData(testCaseSheetName, testCaseName);
@@ -63,53 +63,53 @@ public class GuidedBookingParcel extends BaseTest {
 
             //CODE
             login.userLoginAsDomesticAccount(loginUsername, loginPassword);
-            guidedBooking.userClicksOnTheGuidedBookingOption();
-            guidedBooking.userSelectsGBShipmentType("gbParcels");
-            guidedBooking.userEnterGBShipmentOrigin("gbParcelsOrigin", xlShipmentOrigin);
-            guidedBooking.userEnterGBShipmentDestination("gbParcelsDestination", xlShipmentDestination);
-            guidedBooking.userClickOnGBParcelShipmentDatePicker();
-            guidedBooking.userSelectGBParcelDepartureTime();
-            guidedBooking.userSelectDeliveryType();
+            parcelActions.userClicksOnTheGuidedBookingOption();
+            parcelActions.userSelectsGBShipmentType("gbParcels");
+            parcelActions.userEnterGBShipmentOrigin("gbParcelsOrigin", xlShipmentOrigin);
+            parcelActions.userEnterGBShipmentDestination("gbParcelsDestination", xlShipmentDestination);
+            parcelActions.userClickOnGBParcelShipmentDatePicker();
+            parcelActions.userSelectGBParcelDepartureTime();
+            parcelActions.userSelectDeliveryType();
 
             // Enter quantity, length, weight, height and Units
             Parcel parcel = new Parcel(xlShipmentQuantity, xlShipmentLength, xlShipmentWidth, xlShipmentHeight, xlShipmentQuantityUnit);
             // Enter details of default Parcel
-            addParcel(guidedBooking, parcel, 1);
+            addParcel(parcelActions, parcel, 1);
             if (addAdditionalParcels) {
                 // Now add few more parcels
                 for (int i = 0; i < 3; i++) {
-                    guidedBooking.userChooseAddItem("gbParcelAddParcel");
-                    addParcel(guidedBooking, parcel, i + 2);
+                    parcelActions.userChooseAddItem("gbParcelAddParcel");
+                    addParcel(parcelActions, parcel, i + 2);
                 }
             }
 
-            guidedBooking.userEnterGBShipmentTotalWeight("gbParcelsTotalWeight", xlShipmentWeight);
-            guidedBooking.userChooseGBShipmentUnit("gbParcelsWeightUnits", xlShipmentWeightUnits);
+            parcelActions.userEnterGBShipmentTotalWeight("gbParcelsTotalWeight", xlShipmentWeight);
+            parcelActions.userChooseGBShipmentUnit("gbParcelsWeightUnits", xlShipmentWeightUnits);
             // Contains dangerous goods Yes or No
-            guidedBooking.userSelectYesNoRadioButton(xlShipmentDoPiecesContainDangerousGoods, "gbParcelContainsDangerousGoodsYes", "gbParcelContainsDangerousGoodsNo");
+            parcelActions.userSelectYesNoRadioButton(xlShipmentDoPiecesContainDangerousGoods, "gbParcelContainsDangerousGoodsYes", "gbParcelContainsDangerousGoodsNo");
             // Shipment to be rotated Yes or No
-            guidedBooking.userSelectYesNoRadioButton(xlShipmentDoPiecesBeRotated, "gbParcelCanbeRotatedYes", "gbParcelCanbeRotatedNo");
+            parcelActions.userSelectYesNoRadioButton(xlShipmentDoPiecesBeRotated, "gbParcelCanbeRotatedYes", "gbParcelCanbeRotatedNo");
             // Shipment to be pre-screened Yes or No
-            guidedBooking.userSelectYesNoRadioButton(xlShipmentBePreScreened, "gbParcelPrescreenedYes", "gbParcelPrescreenedNo");
-            guidedBooking.userClicksOnGBFindFlights();
+            parcelActions.userSelectYesNoRadioButton(xlShipmentBePreScreened, "gbParcelPrescreenedYes", "gbParcelPrescreenedNo");
+            parcelActions.userClicksOnGBFindFlights();
 
             // Select flight option
             switch (flightOption) {
                 case "STANDARD":
-                    guidedBooking.userSelectOneFlightStandard();
+                    parcelActions.userSelectOneFlightStandard();
                     break;
                 case "DASH":
-                    guidedBooking.userSelectOneFlightDash();
+                    parcelActions.userSelectOneFlightDash();
                     break;
                 case "DASH_CRITICAL":
-                    guidedBooking.userSelectOneFlightDashCritical();
+                    parcelActions.userSelectOneFlightDashCritical();
                     break;
                 default:
                     fail("Invalid flight option is provided");
             }
 
-            guidedBooking.userWaitsToFillCargoShipmentRequest();
-            guidedBooking.userEnterRecipientDetails( new String[]{xlShipmentDescription,
+            parcelActions.userWaitsToFillCargoShipmentRequest();
+            parcelActions.userEnterRecipientDetails( new String[]{xlShipmentDescription,
                     xlRecipientAccountNumber});
             Reporter.log("user logged In Successfully");
         } else {
@@ -117,11 +117,11 @@ public class GuidedBookingParcel extends BaseTest {
         }
     }
 
-    private void addParcel(GuidedBooking guidedBooking, Parcel parcel, int index) {
-        guidedBooking.userEnterGBShipmentQuantity("gbParcelsQuantity", parcel.getShipmentQuantity(), index);
-        guidedBooking.userEnterGBShipmentLength("gbParcelsLength", parcel.getShipmentLength(), index);
-        guidedBooking.userEnterGBShipmentWidth("gbParcelsWidth", parcel.getShipmentWidth(), index);
-        guidedBooking.userEnterGBShipmentHeight("gbParcelsHeight", parcel.getShipmentHeight(), index);
-        guidedBooking.userChooseGBQuantityUnit("gbParcelsQuantityUnits", parcel.getShipmentUnit(), index);
+    private void addParcel(ParcelActions parcelActions, Parcel parcel, int index) {
+        parcelActions.userEnterGBShipmentQuantity("gbParcelsQuantity", parcel.getShipmentQuantity(), index);
+        parcelActions.userEnterGBShipmentLength("gbParcelsLength", parcel.getShipmentLength(), index);
+        parcelActions.userEnterGBShipmentWidth("gbParcelsWidth", parcel.getShipmentWidth(), index);
+        parcelActions.userEnterGBShipmentHeight("gbParcelsHeight", parcel.getShipmentHeight(), index);
+        parcelActions.userChooseGBQuantityUnit("gbParcelsQuantityUnits", parcel.getShipmentUnit(), index);
     }
 }

@@ -1,7 +1,7 @@
-package com.delta.test.UI;
+package com.delta.test.ui;
 
 import com.delta.pageobjects.guidedbooking.Parcel;
-import com.delta.pageobjects.guidedbooking.PharmaBookingActions;
+import com.delta.pageobjects.guidedbooking.PharmaActions;
 import com.delta.util.BaseTest;
 import com.delta.util.Login;
 import org.testng.annotations.AfterTest;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static org.testng.AssertJUnit.fail;
 
-public class GuidedBookingPharma extends BaseTest {
+public class GuidedBookingPharmaTest extends BaseTest {
     @AfterTest
     public void afterEach() {
         driver.close();
@@ -49,7 +49,7 @@ public class GuidedBookingPharma extends BaseTest {
 
     private void fillPharmaForm(String testCaseName, int pharmaIndex, boolean addAdditionalPharma) {
         Login login = new Login(driver);
-        PharmaBookingActions pharmaBookingActions = new PharmaBookingActions(driver);
+        PharmaActions pharmaActions = new PharmaActions(driver);
 
         String testCaseSheetName = "GBPharma";
         Map<String, Object> eachRowMap = login.excelReadTestData(testCaseSheetName, testCaseName);
@@ -78,24 +78,24 @@ public class GuidedBookingPharma extends BaseTest {
 
             //CODE
             login.userLoginAsDomesticAccount(loginUsername, loginPassword);
-            pharmaBookingActions.userClicksOnTheGuidedBookingOption();
-            pharmaBookingActions.userSelectsGBShipmentType("gbPharma");
-            pharmaBookingActions.userEnterGBShipmentOrigin("gbPharmaOrigin", xlShipmentOrigin);
-            pharmaBookingActions.userEnterGBShipmentDestination("gbPharmaDestination", xlShipmentDestination);
-            pharmaBookingActions.userClickOnGBPharmaShipmentDatePicker();
-            pharmaBookingActions.userSelectGBPharmaDepartureTime();
-            pharmaBookingActions.userSelectGBPharmaType(pharmaIndex, 1);
+            pharmaActions.userClicksOnTheGuidedBookingOption();
+            pharmaActions.userSelectsGBShipmentType("gbPharma");
+            pharmaActions.userEnterGBShipmentOrigin("gbPharmaOrigin", xlShipmentOrigin);
+            pharmaActions.userEnterGBShipmentDestination("gbPharmaDestination", xlShipmentDestination);
+            pharmaActions.userClickOnGBPharmaShipmentDatePicker();
+            pharmaActions.userSelectGBPharmaDepartureTime();
+            pharmaActions.userSelectGBPharmaType(pharmaIndex, 1);
 
             switch (pharmaIndex) {
                 case 1:
                 case 2:
                     // Container required Yes or No
-                    pharmaBookingActions.userSelectYesNoRadioButton(xlShipmentRequireDeltaContainer, "gbPharmaContainerRequiredYes", "gbPharmaContainerRequiredNo");
-                    pharmaBookingActions.userSelectContainerType();
-                    pharmaBookingActions.userEnterTotalNumberOfContainers(xlShipmentQuantityUnit);
+                    pharmaActions.userSelectYesNoRadioButton(xlShipmentRequireDeltaContainer, "gbPharmaContainerRequiredYes", "gbPharmaContainerRequiredNo");
+                    pharmaActions.userSelectContainerType();
+                    pharmaActions.userEnterTotalNumberOfContainers(xlShipmentQuantityUnit);
                     // Total Pharma Weight
-                    pharmaBookingActions.userEnterTotalContainersWeight(xlShipmentWeight);
-                    pharmaBookingActions.userChooseGBQuantityUnit("gbPharmaUnit", xlShipmentWeightUnits, 1);
+                    pharmaActions.userEnterTotalContainersWeight(xlShipmentWeight);
+                    pharmaActions.userChooseGBQuantityUnit("gbPharmaUnit", xlShipmentWeightUnits, 1);
                     break;
                 case 3:
                 case 4:
@@ -103,18 +103,18 @@ public class GuidedBookingPharma extends BaseTest {
                     // Enter quantity, length, weight, height and Units
                     Parcel parcel = new Parcel(xlShipmentQuantity, xlShipmentLength, xlShipmentWidth, xlShipmentHeight, xlShipmentQuantityUnit);
                     // Enter details of default Pharma
-                    addPharma(pharmaBookingActions, parcel, 1);
+                    addPharma(pharmaActions, parcel, 1);
                     if (addAdditionalPharma) {
                         // Now add few more parcels
                         for (int i = 0; i < 3; i++) {
-                            pharmaBookingActions.userChooseAddItem("gbPharmaAddItem");
-                            pharmaBookingActions.userSelectGBPharmaType(pharmaIndex, i + 2);
-                            addPharma(pharmaBookingActions, parcel, i + 2);
+                            pharmaActions.userChooseAddItem("gbPharmaAddItem");
+                            pharmaActions.userSelectGBPharmaType(pharmaIndex, i + 2);
+                            addPharma(pharmaActions, parcel, i + 2);
                         }
                     }
 
-                    pharmaBookingActions.userEnterGBShipmentTotalWeight("gbPharmaTotalWeight", xlShipmentWeight);
-                    pharmaBookingActions.userChooseGBShipmentUnit("gbPharmaSelectTotalWeightUnit", xlShipmentWeightUnits);
+                    pharmaActions.userEnterGBShipmentTotalWeight("gbPharmaTotalWeight", xlShipmentWeight);
+                    pharmaActions.userChooseGBShipmentUnit("gbPharmaSelectTotalWeightUnit", xlShipmentWeightUnits);
 
                     break;
                 default:
@@ -122,25 +122,25 @@ public class GuidedBookingPharma extends BaseTest {
             }
 
             // Contains dangerous goods Yes or No
-            pharmaBookingActions.userSelectYesNoRadioButton(xlShipmentDoPiecesContainDangerousGoods, "gbPharmaContainsDangerousGoodsYes", "gbPharmaContainsDangerousGoodsNo");
+            pharmaActions.userSelectYesNoRadioButton(xlShipmentDoPiecesContainDangerousGoods, "gbPharmaContainsDangerousGoodsYes", "gbPharmaContainsDangerousGoodsNo");
             // Pieces to be rotated Yes or No
-            pharmaBookingActions.userSelectYesNoRadioButton(xlShipmentDoPiecesBeRotated, "gbPharmaCanbeRotatedYes", "gbPharmaCanbeRotatedNo");
+            pharmaActions.userSelectYesNoRadioButton(xlShipmentDoPiecesBeRotated, "gbPharmaCanbeRotatedYes", "gbPharmaCanbeRotatedNo");
             // Shipment to be pre-screened Yes or No
-            pharmaBookingActions.userSelectYesNoRadioButton(xlShipmentBePreScreened, "gbPharmaPrescreenedYes", "gbPharmaPrescreenedNo");
+            pharmaActions.userSelectYesNoRadioButton(xlShipmentBePreScreened, "gbPharmaPrescreenedYes", "gbPharmaPrescreenedNo");
 
-            pharmaBookingActions.userClicksOnGBFindFlights();
-            pharmaBookingActions.userSelectOneFlight();
-            pharmaBookingActions.userWaitsToFillCargoShipmentRequest();
-            pharmaBookingActions.userEnterRecipientDetails(new String[]{xlShipmentDescription,
+            pharmaActions.userClicksOnGBFindFlights();
+            pharmaActions.userSelectOneFlight();
+            pharmaActions.userWaitsToFillCargoShipmentRequest();
+            pharmaActions.userEnterRecipientDetails(new String[]{xlShipmentDescription,
                     xlRecipientAccountNumber});
         }
     }
 
-    private void addPharma(PharmaBookingActions pharmaBookingActions, Parcel parcel, int index) {
-        pharmaBookingActions.userEnterGBShipmentQuantity("gbPharmaQuantity", parcel.getShipmentQuantity(), index);
-        pharmaBookingActions.userEnterGBShipmentLength("gbPharmaLength", parcel.getShipmentLength(), index);
-        pharmaBookingActions.userEnterGBShipmentWidth("gbPharmaWidth", parcel.getShipmentWidth(), index);
-        pharmaBookingActions.userEnterGBShipmentHeight("gbPharmaHeight", parcel.getShipmentHeight(), index);
-        pharmaBookingActions.userChooseGBQuantityUnit("gbPharmaUnit", parcel.getShipmentUnit(), index);
+    private void addPharma(PharmaActions pharmaActions, Parcel parcel, int index) {
+        pharmaActions.userEnterGBShipmentQuantity("gbPharmaQuantity", parcel.getShipmentQuantity(), index);
+        pharmaActions.userEnterGBShipmentLength("gbPharmaLength", parcel.getShipmentLength(), index);
+        pharmaActions.userEnterGBShipmentWidth("gbPharmaWidth", parcel.getShipmentWidth(), index);
+        pharmaActions.userEnterGBShipmentHeight("gbPharmaHeight", parcel.getShipmentHeight(), index);
+        pharmaActions.userChooseGBQuantityUnit("gbPharmaUnit", parcel.getShipmentUnit(), index);
     }
 }

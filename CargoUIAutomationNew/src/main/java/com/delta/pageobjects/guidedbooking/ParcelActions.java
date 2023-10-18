@@ -1,24 +1,19 @@
 package com.delta.pageobjects.guidedbooking;
 
 import com.delta.pageobjects.common.DatePicker;
-import com.delta.util.CommonMethod;
-import com.delta.util.Login;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import java.time.Duration;
-import java.util.Map;
 import java.util.Random;
 
-public class GuidedBooking extends GBActions {
+public class ParcelActions extends GBActions {
 
-    public GuidedBooking(WebDriver driver) {
+    public ParcelActions(WebDriver driver) {
         super(driver);
     }
 

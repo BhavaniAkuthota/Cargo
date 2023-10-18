@@ -11,9 +11,9 @@ import org.testng.Assert;
 import java.util.List;
 import java.util.Random;
 
-public class PharmaBookingActions extends GBActions {
+public class PharmaActions extends GBActions {
 
-    public PharmaBookingActions(WebDriver driver) {
+    public PharmaActions(WebDriver driver) {
         super(driver);
     }
 

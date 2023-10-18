@@ -1,16 +1,6 @@
-package com.delta.test.UI;
+package com.delta.test.ui;
 
-import com.delta.pageobjects.advancebooking.AdvanceBooking;
 import com.delta.util.BaseTest;
-import com.delta.util.Login;
-import io.netty.util.Timeout;
-import org.testng.Reporter;
-import org.testng.SkipException;
-import org.testng.annotations.Test;
-
-import java.time.Duration;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 
 public class AdvanceBookingGeneralCargo extends BaseTest {

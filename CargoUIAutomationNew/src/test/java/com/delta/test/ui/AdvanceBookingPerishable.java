@@ -1,4 +1,4 @@
-package com.delta.test.UI;
+package com.delta.test.ui;
 
 import com.delta.util.BaseTest;
 
