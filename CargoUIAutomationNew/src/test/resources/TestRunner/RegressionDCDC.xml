@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cargo UI Automation" verbose="1" thread-count="1" parallel="false" >
+
+    <!--    GuidedBooking_PerishablesTest-->
+    <!--1-->
+    <test name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh1Activecontainer_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh1Activecontainer_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--2-->
+    <test name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh2Temperaturecontrolledbetween2Cto8C_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh2Temperaturecontrolledbetween2Cto8C_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--3-->
+    <test name="createAndConfirmGuidedBookingPerishables_DSH_Fresh3Flowersbetween2Cto25C_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_DSH_Fresh3Flowersbetween2Cto25C_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--4-->
+    <test name="createAndConfirmGuidedBookingPerishables_DHV_Fresh3Foodstuffsbetween2Cto25C_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_DHV_Fresh3Foodstuffsbetween2Cto25C_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--5-->
+    <test name="createAndConfirmGuidedBookingPerishables_DMD_Fresh3Seafoodbetween2Cto25C_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_DMD_Fresh3Seafoodbetween2Cto25C_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--6-->
+    <test name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh1Activecontainer_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh1Activecontainer_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--7-->
+    <test name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh2Temperaturecontrolledbetween2Cto8C_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh2Temperaturecontrolledbetween2Cto8C_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--8-->
+    <test name="createAndConfirmGuidedBookingPerishables_EXPRESS_Fresh3Flowersbetween2Cto25C_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_EXPRESS_Fresh3Flowersbetween2Cto25C_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--9-->
+    <test name="createAndConfirmGuidedBookingPerishables_EXPRESS_HEAVY_Fresh3Foodstuffsbetween2Cto25C_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_EXPRESS_HEAVY_Fresh3Foodstuffsbetween2Cto25C_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--10-->
+    <test name="createAndConfirmGuidedBookingPerishables_CRITICAL_HEAVY_Fresh3Seafoodbetween2Cto25C_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_PerishablesTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_CRITICAL_HEAVY_Fresh3Seafoodbetween2Cto25C_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <!--    /GuidedBooking_PerishablesTest/-->
+</suite>

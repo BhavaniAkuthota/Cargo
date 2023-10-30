@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cargo UI Automation" verbose="1" thread-count="1" parallel="false">
+
+<!--    <listeners>-->
+<!--        <listener class-name="com.qa.ExtentReportListener.ExtentReporterNG" />-->
+<!--    </listeners>-->
+
+<!--Parcellessthan16OZ Domestic Test Cases-->
+    <test name="createAndConfirmGuidedBookingParcellessthan16OZ_DSH_NA_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Sumit"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelLessThan16OZTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcellessthan16OZ_DSH_NA_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="createAndConfirmGuidedBookingParcellessthan16OZ_DMD_NA_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Sumit"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelLessThan16OZTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcellessthan16OZ_DMD_NA_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <!--Parcellessthan16OZ International Test Cases-->
+    <test name="createAndConfirmGuidedBookingParcellessthan16OZ_EXPRESS_NA_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Sumit"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelLessThan16OZTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcellessthan16OZ_EXPRESS_NA_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="createAndConfirmGuidedBookingParcellessthan16OZ_CRITICAL_NA_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Sumit"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelLessThan16OZTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcellessthan16OZ_CRITICAL_NA_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

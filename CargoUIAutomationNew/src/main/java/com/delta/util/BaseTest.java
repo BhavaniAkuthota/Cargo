@@ -16,6 +16,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -25,7 +26,6 @@ import java.time.format.DateTimeFormatter;
 
 
 public class BaseTest {
-    ExcelRead excelRead = new ExcelRead();
 
     public static WebDriver driver;
     public static String screenshotsSubFolderName;
@@ -74,8 +74,8 @@ public class BaseTest {
 
     @AfterClass
     public void teardown() {
-
-        //driver.quit();
+        System.out.println("**********QUIT BROWSER*************");
+        driver.quit();
     }
 
     @BeforeSuite
@@ -103,6 +103,7 @@ public class BaseTest {
     @AfterSuite
     public void generateExtentReports() throws Exception {
         extentReports.flush();
+        driver.quit();
        /* Desktop.getDesktop().browse(new File("AllTests.html").toURI());
         Desktop.getDesktop().browse(new File("FailedTests.html").toURI());*/
     }

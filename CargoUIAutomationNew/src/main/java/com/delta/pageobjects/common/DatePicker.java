@@ -14,21 +14,34 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DatePicker {
     private final WebDriver driver;
     private final Map<String, String> xpathIDMap;
+    CommonMethod commonMethod;
 
-    public DatePicker(WebDriver driver,Map<String, String> xpathIDMap) {
+    public DatePicker(WebDriver driver, Map<String, String> xpathIDMap) {
         this.driver = driver;
         this.xpathIDMap = xpathIDMap;
+        commonMethod = new CommonMethod(driver);
     }
 
     public void openCalendar(String calendarSelector, String inputSelector, String dateOpenerSelector) {
         if (!isCalendarOpen(calendarSelector)) {
-            CommonMethod commonMethod = new CommonMethod(driver);
             // First enable the date input field
             WebElement dateElement = driver.findElement(By.cssSelector(this.xpathIDMap.get(inputSelector)));
             dateElement.sendKeys(Keys.TAB);
             commonMethod.waitForAction(2000);
             // Now perform a click to open the Calendar
             driver.findElement(By.cssSelector(this.xpathIDMap.get(dateOpenerSelector))).click();
+            commonMethod.waitForAction(2000);
+        }
+    }
+
+    public void openCalendar(String prefix, String calendarSelector, String inputSelector, String dateOpenerSelector) {
+        if (!isCalendarOpen(calendarSelector)) {
+            // First enable the date input field
+            WebElement dateElement = driver.findElement(By.cssSelector((this.xpathIDMap.get(inputSelector)).replace("ph", prefix)));
+            dateElement.sendKeys(Keys.TAB);
+            commonMethod.waitForAction(2000);
+            // Now perform a click to open the Calendar
+            driver.findElement(By.cssSelector(this.xpathIDMap.get(dateOpenerSelector).replace("ph", prefix))).click();
             commonMethod.waitForAction(2000);
         }
     }
@@ -74,5 +87,24 @@ public class DatePicker {
         c.add(Calendar.DATE, 13);
         Date afterTwoWeeks = c.getTime();
         return new Date(ThreadLocalRandom.current().nextLong(today.getTime(), afterTwoWeeks.getTime()));
+    }
+
+    public void selectDate(String prefix, String gbParcelsShipmentDateCalendarNextMonth, String gbParcelsShipmentDateSelector) {
+        Date bookingDate = getRandomDayInNextTwoWeeks();
+
+        // Determine if clicking on next month is needed and navigate to next month
+        By nextMonth = By.cssSelector(this.xpathIDMap.get(gbParcelsShipmentDateCalendarNextMonth).replace("ph", prefix));
+        if (isNavigateToNextMonth(bookingDate)) {
+            driver.findElement(nextMonth).click();
+            new CommonMethod(driver).waitForAction(2000);
+        }
+
+        // Select Date on Calendar
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(bookingDate);
+        String month = Integer.toString(calendar.get(Calendar.MONTH));
+        String date = Integer.toString(calendar.get(Calendar.DATE));
+        String dateSelectorPath = String.format(this.xpathIDMap.get(gbParcelsShipmentDateSelector).replace("ph", prefix), month, date);
+        driver.findElement(By.xpath(dateSelectorPath)).click();
     }
 }

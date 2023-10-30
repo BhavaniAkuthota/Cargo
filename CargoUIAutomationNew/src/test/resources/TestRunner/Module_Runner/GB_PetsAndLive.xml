@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cargo UI Automation" verbose="1" thread-count="1" parallel="false" >
+
+    <!--    GuidedBooking_MedicalTest-->
+    <!--1-->
+    <test name="createAndConfirmGuidedBookingMedical_DMD_MedicalshipmentMedevac_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_DMD_MedicalshipmentMedevac_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--2-->
+    <test name="createAndConfirmGuidedBookingMedical_DMD_MedicalshipmentfortransplantLiveHumanOrgan_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_DMD_MedicalshipmentfortransplantLiveHumanOrgan_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--3-->
+    <test name="createAndConfirmGuidedBookingMedical_DMD_Lifesavingdrugsandmedicationorcordblood_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_DMD_Lifesavingdrugsandmedicationorcordblood_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--4-->
+    <test name="createAndConfirmGuidedBookingMedical_DMD_MedicalshipmentfortransplantOther_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_DMD_MedicalshipmentfortransplantOther_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--5-->
+    <test name="createAndConfirmGuidedBookingMedical_DSH_MedicalshipmentnotfortransplantDiagnosticSpecimen_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_DSH_MedicalshipmentnotfortransplantDiagnosticSpecimen_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--6-->
+    <test name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh1Activecontainer_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingPerishables_FRESH_Fresh1Activecontainer_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--7-->
+    <test name="createAndConfirmGuidedBookingMedical_DHV_MedicalshipmentnotfortransplantOther_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_DHV_MedicalshipmentnotfortransplantOther_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--8-->
+    <test name="createAndConfirmGuidedBookingMedical_CRITICAL_HEAVY_Lifesavingdrugsandmedicationorcordblood_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_CRITICAL_HEAVY_Lifesavingdrugsandmedicationorcordblood_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--9-->
+    <test name="createAndConfirmGuidedBookingMedical_CRITICAL_MedicalshipmentMedevac_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_CRITICAL_MedicalshipmentMedevac_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>    <!--10-->
+    <test name="createAndConfirmGuidedBookingMedical_CRITICAL_HEAVY_MedicalshipmentfortransplantLiveHumanOrgan_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_CRITICAL_HEAVY_MedicalshipmentfortransplantLiveHumanOrgan_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!--11-->
+    <test name="createAndConfirmGuidedBookingMedical_CRITICAL_MedicalshipmentfortransplantOther_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_CRITICAL_MedicalshipmentfortransplantOther_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!--12-->
+    <test name="createAndConfirmGuidedBookingMedical_EXPRESS_HEAVY_MedicalshipmentnotfortransplantDiagnosticSpecimen_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Vishal"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_MedicalTest">
+                <methods>
+                    <include
+                            name="createAndConfirmGuidedBookingMedical_EXPRESS_HEAVY_MedicalshipmentnotfortransplantDiagnosticSpecimen_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <!--    /GuidedBooking_MedicalTest/-->
+</suite>

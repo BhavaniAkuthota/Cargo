@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cargo UI Automation" verbose="1" thread-count="1" parallel="false">
+
+<!--    <listeners>-->
+<!--        <listener class-name="com.qa.ExtentReportListener.ExtentReporterNG" />-->
+<!--    </listeners>-->
+
+<!--GuidedBooking_Parcels-->
+<!--1-->
+    <test name="createAndConfirmGuidedBookingParcels_STANDARD_NA_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Bhavani"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcels_STANDARD_NA_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <!--2-->
+    <test name="createAndConfirmGuidedBookingParcels_DSH_NA_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Bhavani"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcels_DSH_NA_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <!--3-->
+    <test name="createAndConfirmGuidedBookingParcels_DMD_NA_Domestic">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Bhavani"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcels_DMD_NA_Domestic"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <!--International Test Cases4-->
+    <test name="createAndConfirmGuidedBookingParcels_GENERAL_NA_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Bhavani"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcels_GENERAL_NA_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <!--5-->
+    <test name="createAndConfirmGuidedBookingParcels_EXPRESS_NA_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Bhavani"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcels_EXPRESS_NA_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <!--6-->
+    <test name="createAndConfirmGuidedBookingParcels_CRITICAL_NA_International">
+        <parameter name="url" value="si.deltacargo.com"></parameter>
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="author" value="Bhavani"></parameter>
+        <classes>
+            <class name="com.delta.test.ui.GuidedBooking_ParcelTest">
+                <methods>
+                    <include name="createAndConfirmGuidedBookingParcels_CRITICAL_NA_International"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

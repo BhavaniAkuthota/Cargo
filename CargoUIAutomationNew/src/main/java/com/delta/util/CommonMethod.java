@@ -16,7 +16,7 @@ public class CommonMethod {
         wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-    public void waitUntilElementIsClickable(String xlWebElement) {
+    public void waitUntilElementIsClickableAndClick(String xlWebElement) {
         By by = selectLocator(xlWebElement);
         isElementVisible(by);
         jseClick(by);
@@ -28,8 +28,12 @@ public class CommonMethod {
         jseClick(by);
     }
 
-    private void isElementVisible(By by) {
+    public void isElementVisible(By by) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    public void isElementClickable(By by) {
+        wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
     public void waitUntilElementVisible(String xlWebElement) {
@@ -154,8 +158,9 @@ public class CommonMethod {
     }
 
     public void acceptPopUpButton(String xpathDialog, String xpathOk) {
+
         Wait<WebDriver> unitChangeWait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofMillis(100))
+                .withTimeout(Duration.ofMillis(5))
                 .ignoring(NoSuchElementException.class);
 
         List<WebElement> elements = unitChangeWait.until(new Function<WebDriver, List<WebElement>>() {
@@ -181,4 +186,5 @@ public class CommonMethod {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("window.scrollBy(0, 500)", "");
     }
+
 }

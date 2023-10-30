@@ -3,6 +3,7 @@ package com.delta.pageobjects.advancebooking;
 import com.delta.util.CommonMethod;
 import com.delta.util.ExcelRead;
 import com.delta.util.Login;
+import com.delta.util.xlMapper;
 import org.openqa.selenium.WebDriver;
 
 import java.util.HashMap;
@@ -18,9 +19,8 @@ public class AdvanceBooking {
 
     public AdvanceBooking(WebDriver driver) {
         this.driver = driver;
-        Login login = new Login(driver);
         commonMethod = new CommonMethod(driver);
-        this.xpathIDMap = login.getXpathIDMap();
+        this.xpathIDMap = xlMapper.getXpathIDMap();
     }
 
     public Map<String, Object> excelReadTestData(String workSheetName, String testCaseName) {
