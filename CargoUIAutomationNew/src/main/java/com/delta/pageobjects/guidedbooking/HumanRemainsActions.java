@@ -22,12 +22,14 @@ public class HumanRemainsActions extends CommonMethod {
         this.driver = driver;
         this.xpathIDMap = xpathIDMap;
     }
+
     public void userClickOnGBHumanRemainsShipmentDatePicker() {
         DatePicker datePicker = new DatePicker(driver, getXpathIDMap());
         datePicker.openCalendar("gbParcelsShipmentDateCalendar", "gbHumanRemainsShipmentDateInput", "gbHumanRemainsShipmentDateOpener");
         datePicker.selectDate("gbParcelsShipmentDateCalendarNextMonth", "gbParcelsShipmentDateSelector");
         waitForAction(500);
     }
+
     public void userSelectGBHumanRemainsDepartureTime() {
         final String[] departureTimes = {"0000", "0800", "1200", "1600", "2000"};
         WebElement selectElement = driver.findElement(By.cssSelector(getXpathIDMap().get("gbHumanRemainsDepartureTimeSelector")));
@@ -39,24 +41,23 @@ public class HumanRemainsActions extends CommonMethod {
         departureTime.selectByValue(departureTimes[index]);
         waitForAction(200);
     }
-    public void userSelectGBHumanRemainsType(int humanremainSelectIndex, int humanIndex) {
-        String unitSelector = String.format(getXpathIDMap().get("gbHumanRemainsTypeSelector"), humanIndex);
-        WebElement selectElement = driver.findElement(By.cssSelector(unitSelector));
-        selectElement.click();
-        waitForAction(200);
 
-        Select pharmaTypeSelect = new Select(selectElement);
-        pharmaTypeSelect.selectByIndex(humanremainSelectIndex);
+    public void userSelectGBHumanRemainsType(int humanremainSelectIndex) {
+        WebElement selectElement = driver.findElement(By.cssSelector(getXpathIDMap().get("gbHumanRemainsTypeSelector")));
+        Select hrRemainsTypeSelect = new Select(selectElement);
+        hrRemainsTypeSelect.selectByIndex(humanremainSelectIndex);
         waitForAction(200);
     }
+
     public void userSelectAirContainerType() {
-        final String[] aircontainerTypes = {"Air Tray", "Casket", "Combo", "Casket with Air Tray", "Cremains"};
+        final String[] airContainerTypes = {"Air Tray", "Casket", "Combo", "Casket with Air Tray", "Cremains"};
         WebElement selectElement = driver.findElement(By.cssSelector(getXpathIDMap().get("gbHumanRemainsSelectAirContainerType")));
-        Select departureTime = new Select(selectElement);
-        int index = new Random().nextInt(aircontainerTypes.length);
-        departureTime.selectByValue(aircontainerTypes[index]);
+        Select airContainer = new Select(selectElement);
+        int index = new Random().nextInt(airContainerTypes.length);
+        airContainer.selectByVisibleText(airContainerTypes[index]);
         waitForAction(200);
     }
+    
     public void userClicksOnGBHumanRemainsFindFlights(String shipmentType) {
         scrollDownLittle();
         waitForAction(200);

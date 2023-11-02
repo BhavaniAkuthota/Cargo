@@ -89,7 +89,7 @@ public class GuidedBooking_HumanRemainsTest extends BaseTest {
             humanRemainsActions.userSelectGBHumanRemainsDepartureTime();
 
             //HumanRemains Code
-            humanRemainsActions.userSelectGBHumanRemainsType(humanIndex, 1);
+            humanRemainsActions.userSelectGBHumanRemainsType(humanIndex);
 
             switch (humanIndex) {
                 case 1:
