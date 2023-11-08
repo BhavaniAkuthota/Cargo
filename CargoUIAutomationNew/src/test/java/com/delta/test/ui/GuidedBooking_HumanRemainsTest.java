@@ -36,19 +36,19 @@ public class GuidedBooking_HumanRemainsTest extends BaseTest {
     @Test(priority = 4)
     public void createAndConfirmGuidedBookingHumanRemains_CARE_Adult_International() {
         String testCaseName = "createAndConfirmGuidedBookingHumanRemains_CARE_Adult_International";
-        fillForm(testCaseName, 1);
+        fillForm(testCaseName, 2);
     }
     @Test(priority = 5)
     public void createAndConfirmGuidedBookingHumanRemains_CARE_ChildInfant_International() {
         String testCaseName = "createAndConfirmGuidedBookingHumanRemains_CARE_ChildInfant_International";
-        fillForm(testCaseName, 2);
+        fillForm(testCaseName, 3);
     }
     @Test(priority = 6)
     public void createAndConfirmGuidedBookingHumanRemains_CARE_CrematedRemains_International() {
         String testCaseName = "createAndConfirmGuidedBookingHumanRemains_CARE_CrematedRemains_International";
-        fillForm(testCaseName, 3);
+        fillForm(testCaseName, 1);
     }
-    private void fillForm(String testCaseName, int humanIndex) {
+    private void fillForm(String testCaseName, int humanremainSelectIndex) {
         Login login = new Login(driver, xlMapper.getXpathIDMap());
         HumanRemainsActions humanRemainsActions = new HumanRemainsActions(driver, xlMapper.getXpathIDMap());
         GBActions gbActions = new GBActions(driver, xlMapper.getXpathIDMap());
@@ -89,9 +89,9 @@ public class GuidedBooking_HumanRemainsTest extends BaseTest {
             humanRemainsActions.userSelectGBHumanRemainsDepartureTime();
 
             //HumanRemains Code
-            humanRemainsActions.userSelectGBHumanRemainsType(humanIndex);
+            humanRemainsActions.userSelectGBHumanRemainsType(humanremainSelectIndex);
 
-            switch (humanIndex) {
+            switch (humanremainSelectIndex) {
                 case 1:
                 case 2:
                 case 3:
