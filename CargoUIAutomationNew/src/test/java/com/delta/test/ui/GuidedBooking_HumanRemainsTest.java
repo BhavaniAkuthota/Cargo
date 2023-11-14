@@ -20,32 +20,32 @@ public class GuidedBooking_HumanRemainsTest extends BaseTest {
 
     @Test(priority = 1)
     public void createAndConfirmGuidedBookingHumanRemains_CARE_Adult_Domestic() {
-        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_CARE_Adult_Domestic";
+        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_Cares_Adult_Domestic";
         fillForm(testCaseName, 1);
     }
     @Test(priority = 2)
     public void createAndConfirmGuidedBookingHumanRemains_CARE_ChildInfant_Domestic() {
-        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_CARE_ChildInfant_Domestic";
+        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_Cares_ChildInfant_Domestic";
         fillForm(testCaseName, 2);
     }
     @Test(priority = 3)
     public void createAndConfirmGuidedBookingHumanRemains_CARE_CrematedRemains_Domestic() {
-        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_CARE_CrematedRemains_Domestic";
+        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_Cares_CrematedRemains_Domestic";
         fillForm(testCaseName, 3);
     }
     @Test(priority = 4)
     public void createAndConfirmGuidedBookingHumanRemains_CARE_Adult_International() {
-        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_CARE_Adult_International";
+        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_Cares_Adult_International";
         fillForm(testCaseName, 2);
     }
     @Test(priority = 5)
     public void createAndConfirmGuidedBookingHumanRemains_CARE_ChildInfant_International() {
-        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_CARE_ChildInfant_International";
+        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_Cares_ChildInfant_International";
         fillForm(testCaseName, 3);
     }
     @Test(priority = 6)
     public void createAndConfirmGuidedBookingHumanRemains_CARE_CrematedRemains_International() {
-        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_CARE_CrematedRemains_International";
+        String testCaseName = "createAndConfirmGuidedBookingHumanRemains_Cares_CrematedRemains_International";
         fillForm(testCaseName, 1);
     }
     private void fillForm(String testCaseName, int humanremainSelectIndex) {
@@ -68,6 +68,7 @@ public class GuidedBooking_HumanRemainsTest extends BaseTest {
             String xlShipmentWeight = (String) eachRowMap.get("ShipmentWeight");
             String xlShipmentWeightUnits = (String) eachRowMap.get("ShipmentWeightUnits");
 
+            String airContainerType = (String) eachRowMap.get("ContainerType");
             String xlShipmentLength = (String) eachRowMap.get("ShipmentLength");
             String xlShipmentWidth = (String) eachRowMap.get("ShipmentWidth");
             String xlShipmentHeight = (String) eachRowMap.get("ShipmentHeight");
@@ -95,7 +96,7 @@ public class GuidedBooking_HumanRemainsTest extends BaseTest {
                 case 1:
                 case 2:
                 case 3:
-                    humanRemainsActions.userSelectAirContainerType();
+                    humanRemainsActions.userSelectAirContainerType(airContainerType);
                     gbActions.userEnterGBShipmentTotalWeight("gbHumanRemainsTotalWeight", xlShipmentWeight);
                     gbActions.userChooseGBShipmentUnit("gbHumanRemainsWeightUnits", xlShipmentWeightUnits);
                     gbActions.userEnterGBShipmentLength("gbHumanRemainsLength", xlShipmentLength);

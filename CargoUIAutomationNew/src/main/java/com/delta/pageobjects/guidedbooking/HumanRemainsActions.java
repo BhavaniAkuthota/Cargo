@@ -5,11 +5,8 @@ import com.delta.util.CommonMethod;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.Map;
 import java.util.Random;
 
@@ -52,29 +49,20 @@ public class HumanRemainsActions extends CommonMethod {
         waitForAction(200);
     }
 
-    public void userSelectAirContainerType() {
-        final String[] airContainerTypes = {"Air Tray", "Casket", "Combo", "Casket with Air Tray", "Cremains"};
+    public void userSelectAirContainerType(String airContainerType) {
         WebElement selectElement = driver.findElement(By.cssSelector(getXpathIDMap().get("gbHumanRemainsSelectAirContainerType")));
         Select airContainer = new Select(selectElement);
-        int index = new Random().nextInt(airContainerTypes.length);
-        airContainer.selectByVisibleText(airContainerTypes[index]);
+        airContainer.selectByVisibleText(airContainerType);
         waitForAction(200);
     }
     
     public void userClicksOnGBHumanRemainsFindFlights(String shipmentType) {
-        scrollDownLittle();
+//        scrollDownLittle();
         waitForAction(200);
-        driver.switchTo().activeElement();
-        waitUntilCssSelectorElementIsClickable(getXpathIDMap().get("gbHumanRemainsFindFlight"));
-    }
-    public void userSelectOneFlightCare() {
-        // Wait for flight search dialog goes away
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
-        waitForAction(2000);
-//        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(getXpathIDMap().get("gbShipmentFlightSearch"))));
-        // Wait for the flight search results to be displayed
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(getXpathIDMap().get("gbShipmentFlightSearchResults")))));
-        waitForAction(2000);
-        driver.findElement(By.cssSelector(getXpathIDMap().get("gbCaresFlightSelector"))).click();
+//        waitUntilXpathElementIsClickable(getXpathIDMap().get("gbHumanRemainsFindFlights"));
+        WebElement findFlightElement = driver.findElement(By.xpath(getXpathIDMap().get("gbHumanRemainsFindFlight")));
+        findFlightElement.click();
+//        driver.switchTo().activeElement();
+//        waitUntilCssSelectorElementIsClickable(getXpathIDMap().get("gbHumanRemainsFindFlight"));
     }
 }

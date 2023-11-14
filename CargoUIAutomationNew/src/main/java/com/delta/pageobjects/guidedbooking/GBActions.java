@@ -36,7 +36,7 @@ public class GBActions extends CommonMethod {
 
     public void userClicksOnTheGuidedBookingOption() {
         waitForAction(5000);
-        waitUntilElementIsClickableAndClick(getXpathIDMap().get("abbookAShipment"));
+        waitUntilElementIsClickableAndClick(getXpathIDMap().get("abBookAShipment"));
         waitUntilXpathElementIsClickable(getXpathIDMap().get("gbGuided"));
         waitForAction(2000);
         closeBanner();
@@ -432,10 +432,11 @@ public class GBActions extends CommonMethod {
 
     public void validateShipmentType(String s) {
         String s2 = shipmentTypeModerator(s);
-        String s1 = driver.findElement(By.xpath("(//*[@id=\"dc-print\"]/section/section[2]/div[4])[1]")).getText().toUpperCase();
+        // String s1 = driver.findElement(By.xpath("(//*[@id=\"dc-print\"]/section/section[2]/div[4])[1]")).getText().toUpperCase();
+        String s1 = driver.findElement(By.xpath("//span[contains(text(), 'Product:')]/parent::div")).getText().toUpperCase();
         System.out.println("%%%%%%%%"+s1+"%%%%%%%%%%%%%");
         Reporter.log("user logged In Sucessfully" +s1);
-        assertTrue(s1.contains(s2));
+        assertTrue(s1.contains(s2.toUpperCase()));
 
     }
 
