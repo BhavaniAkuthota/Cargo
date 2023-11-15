@@ -14,6 +14,7 @@ import org.testng.Reporter;
 import org.testng.asserts.Assertion;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -350,9 +351,32 @@ public class GBActions extends CommonMethod {
         waitUntilElementIsClickableAndClick(getXpathIDMap().get("gbShipmentFlightSearchResults"));
         validateRoutesAvailable();
         String i = String.valueOf((getShipmentSelectionIndex(flightOption)));
-        String locator = String.format(xpathIDMap.get("gbShipmentFlighShipmentSelectionMod").replace("%s", i));
-        validatePriceIsAvailable(locator);
-        driver.findElement(By.cssSelector(locator)).click();
+        selectFlightFromTheResults(i);
+    }
+
+    private void selectFlightFromTheResults(String flightOptionColumnIndex) {
+        List<WebElement> flightResultRows = driver.findElements(By.cssSelector("div[class='flight-list-row'] div[class='flight-row df']"));
+        String flightSelector = "div[class='flight-list-row'] div[class='flight-row df']:nth-child(%s) div.column:nth-child(%s)";
+        boolean validPriceFoundOnCurrentDisplay = false;
+        for (int rowIndex = 0; rowIndex < flightResultRows.size(); rowIndex++) {
+            WebElement flightElement = driver.findElement(By.cssSelector(String.format(flightSelector, rowIndex + 1, flightOptionColumnIndex)));
+            if (flightElement.getText().equals("Product not available for selection")) {
+                continue;
+            }
+
+            // If the next available price is found then click
+            flightElement.click();
+            validPriceFoundOnCurrentDisplay = true;
+            break;
+        }
+
+        // If needed user may have to click on "Load Additional Flights" to display next page
+        if (!validPriceFoundOnCurrentDisplay) {
+            Reporter.log("############# NO PRICE AVAILABLE ON CURRENT PAGE ################");
+            // Click on "Load Additional Flights"
+            // Wait for results to be displayed
+            // Call this method recursively
+        }
     }
 
     private void validatePriceIsAvailable(String val) {

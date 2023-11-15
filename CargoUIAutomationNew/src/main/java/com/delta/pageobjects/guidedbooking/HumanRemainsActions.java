@@ -57,12 +57,8 @@ public class HumanRemainsActions extends CommonMethod {
     }
     
     public void userClicksOnGBHumanRemainsFindFlights(String shipmentType) {
-//        scrollDownLittle();
         waitForAction(200);
-//        waitUntilXpathElementIsClickable(getXpathIDMap().get("gbHumanRemainsFindFlights"));
         WebElement findFlightElement = driver.findElement(By.xpath(getXpathIDMap().get("gbHumanRemainsFindFlight")));
         findFlightElement.click();
-//        driver.switchTo().activeElement();
-//        waitUntilCssSelectorElementIsClickable(getXpathIDMap().get("gbHumanRemainsFindFlight"));
     }
 }
