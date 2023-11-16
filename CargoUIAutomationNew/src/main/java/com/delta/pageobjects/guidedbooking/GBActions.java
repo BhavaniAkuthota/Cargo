@@ -376,6 +376,8 @@ public class GBActions extends CommonMethod {
             // Click on "Load Additional Flights"
             // Wait for results to be displayed
             // Call this method recursively
+            // Remove below fail statement
+            fail("NO PRICE AVAILABLE ON CURRENT PAGE");
         }
     }
 
